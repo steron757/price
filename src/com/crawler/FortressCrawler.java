@@ -80,7 +80,7 @@ public class FortressCrawler extends Crawler{
 				String[] arr = line.split("\\},\\{");
 				for(String t : arr){
 					Mobile fortress = new Mobile();
-					fortress.setRetailer(Retailer.FORTRESS);
+					fortress.setRetailer(Retailer.FORTRESS.getName());
 					Pattern ap = Pattern.compile("(.*?)PRODUCTFAMILY\":\"(.*?)\",\"BRAND_NAME\":\"(.*?)\"(.*?)\"MODEL\":\"(.*?)\"(.*?)\"PRICE\":\"(.*?)\"(.*?)");
 					Matcher am = ap.matcher(t);
 					while (am.find()) {

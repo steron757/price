@@ -8,7 +8,7 @@ public class Product {
 	private String price;
 	private String link;
 	private String description;
-	private Retailer retailer;
+	private String retailer;
 	
 	public String getId() {
 		return id;
@@ -58,11 +58,11 @@ public class Product {
 		this.description = description;
 	}
 
-	public Retailer getRetailer() {
+	public String getRetailer() {
 		return retailer;
 	}
 
-	public void setRetailer(Retailer retailer) {
+	public void setRetailer(String retailer) {
 		this.retailer = retailer;
 	}
 

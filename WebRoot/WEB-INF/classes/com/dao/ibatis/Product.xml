@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="product">
+
+	<resultMap id="ProductMap" class="com.model.Product">
+		<result property="id" column="id" jdbcType="INT" />
+		<result property="brand" column="brand" jdbcType="VARCHAR" />
+		<result property="model" column="model" jdbcType="VARCHAR" />
+		<result property="price" column="price" jdbcType="VARCHAR" />
+		<result property="link" column="link" jdbcType="VARCHAR" />
+		<result property="description" column="description" jdbcType="VARCHAR" />
+		<result property="retailer" column="retailer" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectProduct" resultMap="ProductMap">
+		select id,brand,model,price,link,description,retailer from product
+	</select>
+	
+	<insert id="insertProduct" parameterClass="com.model.Product">
+		insert into product (brand,model,price,link,description,retailer) values
+		(#brand:VARCHAR#,#model:VARCHAR#,#price:VARCHAR#,#price:FLOAT#,#description:VARCHAR#,#retailer:VARCHAR#)
+	</insert>
+	
+	<delete id="deleteProduct" parameterClass="java.lang.String">
+		delete from product where id=#id:VARCHAR#
+	</delete>
+</sqlMap>

@@ -59,7 +59,7 @@ public class SuningHKCrawler extends Crawler{
 					continue;
 				} else {
 					Mobile suningHK = new Mobile();
-					suningHK.setRetailer(Retailer.SUNINGHK);
+					suningHK.setRetailer(Retailer.SUNINGHK.getName());
 					String detailURL = "";
 					if (line.contains("<div class=\"pager clear\"")) { // Bottom
 						while ((line = br.readLine()) != null) {

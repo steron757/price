@@ -60,7 +60,7 @@ public class BroadwayCrawler extends Crawler{
 					continue;
 				} else {
 					Mobile broadway = new Mobile();
-					broadway.setRetailer(Retailer.BROADWAY);
+					broadway.setRetailer(Retailer.BROADWAY.getName());
 					if (line.contains("field-product-brand-value")) {
 						//link and the brand
 						Pattern dp = Pattern.compile("(.*?)field-product-brand-value\">(.*?)</div>(.*?)");
