@@ -15,7 +15,7 @@ public class ContextListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent event) {
 		timer = new java.util.Timer(true);
 		event.getServletContext().log("Timer Started");
-		timer.schedule(new GetDataTask(), 10,  30 * 1000);
+		timer.schedule(new GetDataTask(), 10,  240 * 1000);
 		event.getServletContext().log("Add task to schedule");
 	}
 }

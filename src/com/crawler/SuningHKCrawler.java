@@ -131,7 +131,7 @@ public class SuningHKCrawler extends Crawler{
 			br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			String line;
 			while ((line = br.readLine()) != null) {
-				if (line.contains("價值")){
+				if (line.contains("鍍瑰�")){
 					price = br.readLine().replace("<dd>", "").replace("</dd>", "").trim();
 					break;
 				}
