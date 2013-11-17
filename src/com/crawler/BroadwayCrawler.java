@@ -14,9 +14,10 @@ import com.model.Mobile;
 import com.model.Retailer;
 
 /**
- * Broadway
+ * Broadway Crawler</br>
+ * 12/11/2013
  * 
- * @author Administrator
+ * @author Gang.Chen
  *
  */
 public class BroadwayCrawler extends Crawler{
@@ -53,8 +54,7 @@ public class BroadwayCrawler extends Crawler{
 					break;
 			}
 			while ((line = br.readLine()) != null) {
-				// System.out.println(line);
-				//Product infos is in the same line
+				// Product infos is in the same line
 				if (!line.contains("field-product-brand-value") && !line.contains("field title")
 						&& !line.contains("product-price")) { // title
 					continue;
@@ -72,8 +72,6 @@ public class BroadwayCrawler extends Crawler{
 							while (am.find()) {
 								broadway.setLink(domain + am.group(1));	//link
 								broadway.setBrand(am.group(2));			//brand
-//								System.out.println(domain + am.group(1));
-//								System.out.println(am.group(2));
 							}
 						}
 						//model
@@ -85,16 +83,15 @@ public class BroadwayCrawler extends Crawler{
 							Matcher am = ap.matcher(a);
 							while (am.find()) {
 								broadway.setModel(am.group(2));	//model
-//								System.out.println(am.group(2));
 							}
 						}
-						//价格
+						//Price
 						Pattern prp = Pattern.compile("(.*?)product-price\">(.*?)</span>(.*?)");
 						Matcher prm = prp.matcher(line);
 						while (prm.find()) {
-							broadway.setPrice(prm.group(2));	//价格
-//							String a = prm.group(2);
-//							System.out.println(a);
+							String price = prm.group(2);
+							price= price.replace("HKD", "").replace(",", "").trim();
+							broadway.setPrice(Float.parseFloat(price));	//Price
 						}
 						broadwayList.add(broadway);
 					}

@@ -14,9 +14,10 @@ import com.model.Mobile;
 import com.model.Retailer;
 
 /**
- * Suning HK 
+ * Suning HK Crawler</br>
+ * 12/11/2013
  * 
- * @author Administrator
+ * @author Gang.Chen
  *
  */
 public class SuningHKCrawler extends Crawler{
@@ -87,10 +88,10 @@ public class SuningHKCrawler extends Crawler{
 						Matcher am = ap.matcher(line);
 						while (am.find()) {
 							detailURL = domain + am.group(1);
-//							suningHK.setLink(detailURL);
+							suningHK.setLink(detailURL);
 							if(!detailURL.contains("javascript")){
 //							System.out.println(detailURL);
-							suningHK.setPrice(findDetails(new URL(detailURL)));
+							suningHK.setPrice(Float.parseFloat(findDetails(new URL(detailURL))));
 							}
 						}
 					}
@@ -121,6 +122,12 @@ public class SuningHKCrawler extends Crawler{
 		return suningList;
 	}
 
+	/**
+	 * Find price by forwarding its detail page
+	 * 
+	 * @param url
+	 * @return
+	 */
 	private String findDetails(URL url){
 		BufferedReader br = null;
 		HttpURLConnection conn;
@@ -131,8 +138,9 @@ public class SuningHKCrawler extends Crawler{
 			br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			String line;
 			while ((line = br.readLine()) != null) {
-				if (line.contains("鍍瑰�")){
-					price = br.readLine().replace("<dd>", "").replace("</dd>", "").trim();
+				if (line.contains("HK$")){
+					price = line.replace("<dd>", "").replace("</dd>", "");
+					price = price.replace("HK$", "").replace(",", "").trim();
 					break;
 				}
 			}

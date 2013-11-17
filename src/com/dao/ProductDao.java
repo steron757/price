@@ -4,19 +4,12 @@ import java.util.List;
 
 import com.model.Product;
 
-@SuppressWarnings("unchecked")
-public class ProductDao extends BaseDao {
-	
-	public List<Product> selectProduct(){
-		return this.getSqlMapClientTemplate().queryForList("selectProduct");
-	}
-	
-	public boolean insertProduct(Product product){
-		Object obj = this.getSqlMapClientTemplate().insert("insertProduct", product);
-		return obj != null;
-	}
-	
-	public boolean deleteProduct(String id){
-		return this.getSqlMapClientTemplate().delete("deleteProduct", id) > 0;
-	}
+public interface ProductDao {
+
+	public abstract List<Product> selectProduct();
+
+	public abstract boolean insertProduct(Product product);
+
+	public abstract boolean deleteProduct(String id);
+
 }

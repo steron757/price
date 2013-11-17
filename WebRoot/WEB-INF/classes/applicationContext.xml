@@ -45,6 +45,6 @@
 		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
 	</bean>
 	
-	<bean id="productDao" class="com.dao.ProductDao" parent="baseDao"></bean>
+	<bean id="productDao" class="com.dao.impl.ProductDaoImpl" parent="baseDao"></bean>
 
 </beans>

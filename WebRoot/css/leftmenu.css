@@ -1,0 +1,126 @@
+@CHARSET "UTF-8";
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.mold_open_hover,.mold_open {
+	background-image: url();
+	background-repeat: none;
+	display: inline-block;
+	width: 10px;
+	height: 6px;
+	margin-left: 10px;
+	position: relative;
+	top: -2px;
+}
+
+.mold_open {
+	background-position: 0 -6px;
+}
+
+.mold_open_hover {
+	background-position: 0 0;
+}
+
+.mod-menu {
+	position: relative;
+	z-index: 1000;
+	left: -1px;
+	margin-left: 10px;
+	margin-top: 20px;
+}
+
+h1 {
+	margin-left: 100px;
+}
+
+.menu-cont-list a:hover {
+	text-decoration: underline;
+}
+
+.mod-menu .menu-item {
+	width: 220px;
+	border-top: solid 1px #76b8e8;
+	border-bottom: solid 2px #76b8e8;
+	position: relative;
+	z-index: 22;
+}
+
+.mod-menu .menu-item li {
+	height: 47px;
+	line-height: 47px;
+	background: #def0fc;
+	border-top: solid 1px #98d4ff;
+}
+
+.mod-menu .menu-item li.mouse-bg {
+	background: url() no-repeat #fff;
+	position: relative;
+	z-index: 22;
+	margin-right: -4px;
+}
+
+/** 一级菜单 */
+.mod-menu .menu-item a {
+	color: #c81d61;
+	font-size: 16px;
+	padding-left: 33px;
+	display: block;
+	height: 45px;
+	border-top: solid 1px #f1f2f7;
+}
+
+.mod-menu .menu-item a:hover {
+	text-decoration: none;
+}
+
+.mod-menu .menu-cont {
+	position: absolute;
+	left: 220px;
+	top: 1px;
+	background: #fff;
+	width: 573px;
+	border: solid 1px #76b8e8;
+	box-shadow: 2px 0 10px #c0eff5;
+	z-index: 20;
+}
+
+.mod-menu .menu-cont-list {
+	padding: 0 30px;
+}
+
+.mod-menu .menu-cont-list li {
+	border-bottom: dotted 1px #5dcee0;
+	padding: 10px 0;
+}
+
+.mod-menu .menu-cont-list li:last-child {
+	border-bottom: none;
+}
+
+.mod-menu .menu-cont-list h3 {
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.mod-menu .menu-cont-list h3 a {
+	color: #222;
+}
+
+.mod-menu .menu-list-link a {
+	color: #666;
+	line-height: 24px;
+}
+
+.mod-menu .menu-list-link .long-string {
+	color: #ccc;
+	font-size: 12px;
+	padding: 0 10px;
+}

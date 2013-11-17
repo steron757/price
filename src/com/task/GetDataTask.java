@@ -7,16 +7,15 @@ import com.crawler.Crawler;
 import com.crawler.FortressCrawler;
 import com.crawler.SuningHKCrawler;
 
+/**
+ * Task to acquire data from website or API</br>
+ * 
+ * 15/11/2013
+ * @author Gang.Chen
+ *
+ */
 public class GetDataTask extends TimerTask {
 
-	public void sleep(){
-		try {
-			Thread.sleep(30 * 1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	@Override
 	public void run() {
 		Crawler craw = new BroadwayCrawler();

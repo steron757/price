@@ -7,9 +7,18 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.model.Product;
 import com.observer.ProductObserver;
 
+/**
+ * Crawler</br>
+ * Main job is collect data via URL, and its subclasses </br>
+ * is responsible for convert data to Object</br>
+ * 
+ * 12/11/2013
+ * 
+ * @author Gang.Chen
+ *
+ */
 public class Crawler extends ProductObserver{
 
 	/** URL in pending */
@@ -51,10 +60,6 @@ public class Crawler extends ProductObserver{
 				e.printStackTrace();
 			}
 			productList = this.getData(url);
-			for(Object p : productList) {
-				System.out.println("---------------------------");
-				System.out.println(((Product) p).getBrand() + ((Product) p).getModel() + ((Product) p).getPrice());
-			}
 		}
 		while (!pendUrls.isEmpty()) {
 			try {
@@ -65,8 +70,8 @@ public class Crawler extends ProductObserver{
 					List<?> next = this.getData(url);
 					for(Object p : next) {
 						productList.add(p);
-						System.out.println("---------------------------");
-						System.out.println(((Product) p).getBrand() + ((Product) p).getModel() + ((Product) p).getPrice());
+//						System.out.println("---------------------------");
+//						System.out.println(((Product) p).getBrand() + ((Product) p).getModel() + ((Product) p).getPrice());
 					}
 				}
 			} catch (MalformedURLException e) {

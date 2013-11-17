@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
- * YiXun
+ * YiXun Crawler</br>
+ * 12/11/2013
  * 
- * @author Administrator
+ * @author Gang.Chen
  *
  */
 public class YiXunCrawler extends Crawler{

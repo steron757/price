@@ -1,5 +1,12 @@
 package com.model;
 
+/**
+ * Retailer</br>
+ * 13/11/2013
+ * 
+ * @author Gang.Chen
+ *
+ */
 public enum Retailer {
 
 	/** Broadway */

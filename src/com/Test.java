@@ -17,8 +17,7 @@ public class Test {
 		ProductDao pdao = (ProductDao) ctx.getBean("productDao");
 		List<Product> productList = (List<Product>) pdao.selectProduct();
 		for(Product p :productList){
-			System.out.println(p.getModel());
+			System.out.println(p.getBrand());
 		}
-		
 	}
 }

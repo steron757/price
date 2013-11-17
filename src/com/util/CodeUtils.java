@@ -3,8 +3,8 @@ package com.util;
 import java.io.UnsupportedEncodingException;
 
 /**
- * Encode/Decode Tools
- * 
+ * Encode/Decode Tools</br>
+ * 14/11/2013
  * @author gang.chen
  * 
  */

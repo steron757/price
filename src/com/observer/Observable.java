@@ -3,7 +3,8 @@ package com.observer;
 import java.util.List;
 
 /**
- * Observer 
+ * Observer </br>
+ * 16/11/2013
  * 
  * @author Gang.Chen
  *

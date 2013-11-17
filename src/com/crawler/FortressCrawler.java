@@ -13,10 +13,12 @@ import java.util.regex.Pattern;
 import com.model.Mobile;
 import com.model.Retailer;
 
+
 /**
- * Fortress
+ * Fortress Crawler</br>
+ * 12/11/2013
  * 
- * @author Administrator
+ * @author Gang.Chen
  *
  */
 public class FortressCrawler extends Crawler{
@@ -62,7 +64,7 @@ public class FortressCrawler extends Crawler{
 			br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			String line;
 			while ((line = br.readLine()) != null) {
-				String head = line.substring(1, 200);	//从头部取到每页数量和总数
+				String head = line.substring(1, 200);	//Get number per page and the total amount
 				Pattern pp = Pattern.compile("(.*?)\"itemPerPage\":(.*?),(.*?)Total\":(.*?),(.*?)");
 				Matcher pm = pp.matcher(head);
 				String itemPerPage = "";
@@ -72,7 +74,7 @@ public class FortressCrawler extends Crawler{
 					total = pm.group(4);
 				}
 				try {
-					pageNum = Integer.parseInt(total) / Integer.parseInt(itemPerPage) + 1;	//计算总页数
+					pageNum = Integer.parseInt(total) / Integer.parseInt(itemPerPage) + 1;	//Calculate the pages
 				} catch (NumberFormatException e) {
 					pageNum = 1;
 					e.printStackTrace();
@@ -84,14 +86,10 @@ public class FortressCrawler extends Crawler{
 					Pattern ap = Pattern.compile("(.*?)PRODUCTFAMILY\":\"(.*?)\",\"BRAND_NAME\":\"(.*?)\"(.*?)\"MODEL\":\"(.*?)\"(.*?)\"PRICE\":\"(.*?)\"(.*?)");
 					Matcher am = ap.matcher(t);
 					while (am.find()) {
-//						System.out.println(link + am.group(2));	//Link
-//						System.out.println(am.group(3));	//Brand
-//						System.out.println(am.group(5));	//Model
-//						System.out.println(am.group(7));	//Price
 						fortress.setLink(link + am.group(2));
 						fortress.setBrand(am.group(3));
 						fortress.setModel(am.group(5));
-						fortress.setPrice(am.group(7));
+						fortress.setPrice(Float.parseFloat(am.group(7)));
 						fortressList.add(fortress);
 					}
 				}

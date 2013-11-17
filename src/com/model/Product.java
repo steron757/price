@@ -1,14 +1,22 @@
 package com.model;
 
+/**
+ * Product</br>
+ * 13/11/2013
+ * 
+ * @author Gang.Chen
+ *
+ */
 public class Product {
 
 	private String id;
 	private String brand;
 	private String model;
-	private String price;
+	private Float price;
 	private String link;
 	private String description;
 	private String retailer;
+	private String createDate;
 	
 	public String getId() {
 		return id;
@@ -34,11 +42,11 @@ public class Product {
 		this.model = model;
 	}
 
-	public String getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
 
@@ -64,6 +72,14 @@ public class Product {
 
 	public void setRetailer(String retailer) {
 		this.retailer = retailer;
+	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 
 }
