@@ -1,3 +1,5 @@
+<%@page import="com.model.enums.Subcategory"%>
+<%@page import="com.model.enums.ProductType"%>
 <%@ page language="java" import="java.util.*" pageEncoding="GB18030"%>
 <%
 	String path = request.getContextPath();
@@ -61,7 +63,17 @@
 			</div>
 		</div>
 		<div class="headcontent_" style="background-image: url('image/headbg.png');float: left;width: 1%;"></div>
-		<div class="headcontent" style="background-image: url('image/headbg2.png');width: 98%;background-repeat: repeat-x;float: left;"></div>
+		<div class="headcontent" style="background-image: url('image/headbg2.png');width: 98%;background-repeat: repeat-x;float: left;">
+			<div class="menu_nav">
+				<ul class="nav_content">
+					<li class="current"><a href="#"><span>首页</span></a></li>
+					<li><a href="#"><span>百老匯</span></a></li>
+					<li><a href="#"><span>蘇寧香港</span></a></li>
+					<li><a href="#"><span>豐澤</span></a></li>
+				</ul>
+				<div class="menu_nav_right"></div>
+			</div>
+		</div>
 		<div class="headcontent_" style="background-image: url('image/headbg3.png');float: right;width: 1%"></div>
 	</div>
 	<div class="content">
@@ -69,57 +81,26 @@
 			<div class="mod-menu f-l">
 				<div id="column-left">
 					<ul class="menu-item">
-						<li class=""><a href="#">Wedding</a></li>
-						<li class=""><a href="#">Women's Shoes</a></li>
-						<li class=""><a href="#">Accessories</a></li>
+						<% for(ProductType p : ProductType.values()){
+								if(p == ProductType.NULL)
+									break;
+						%>		<li class=""><a href="#"><%=p.getDescription() %></a></li>
+						<% } %>
 					</ul>
 					<!--一级菜单列表-->
 					<div class="menu-cont hide" style="display: none; top: 241px;">
+						<% for(ProductType p : ProductType.values()){
+								if(p == ProductType.NULL) break; %>
 						<div class="menu-cont-list" style="display: none;">
 							<ul>
-								<li><h3><a href="#">Wedding Dresses</a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Bridesmaid Dresses</a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Wedding Party Dresses</a></h3>
-									<div class="menu-list-link">
-										<a title="" href="#">Mother of the Brides Dresses</a> <span
-											class="long-string">|</span> <a title="" href="#">Flower
-											Girl Dresses</a><span class="long-string">|</span> <a title=""
-											href="#">Wedding Guest Dresses</a>
-									</div>
-								</li>
-								<li><h3><a href="#">Wedding Accessories</a></h3>
-									<div class="menu-list-link">
-										<a title="#">Fabric Swatch</a> <span class="long-string">|</span>
-										<a title="" href="#">Bridal Lingerie</a> <span
-											class="long-string">|</span> <a title="" href="#">Wedding
-											Flowers</a> <span class="long-string">|</span> <a title=""
-											href="#">Wedding Petticoats</a>
-									</div>
-								</li>
+								<% List<Subcategory> slist = ProductType.getSubcategories(p);
+									for(Subcategory s : slist){ 
+										if(s == Subcategory.NULL)break;%>
+									<li><%=s.getDescription() %></li>
+								<% } %>
 							</ul>
 						</div>
-						
-						<div class="menu-cont-list" style="display: block;">
-							<ul><li><h3><a href="#">Prom Dresses</a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Military Ball Dresses</a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Evening Dresses</a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Cocktail Dresses</a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Ball Gowns</a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Homecoming Dresses</a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Little Black Dresses </a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Quinceanera Dresses</a></h3><div class="menu-list-link"></div></li>
-							</ul>
-						</div>
-						
-						<div class="menu-cont-list" style="display: none;">
-							<ul><li><h3><a href="#">Wigs and Hair extensions</a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Fascinators</a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Makeup Tools</a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Spas and Massagers</a></h3><div class="menu-list-link"></div></li>
-								<li><h3><a href="#">Health and Fitness</a></h3><div class="menu-list-link"></div></li>
-							</ul>
-						</div>
-						
+						<% } %>
 					</div>
 				</div>
 				<!--二级菜单内容-->

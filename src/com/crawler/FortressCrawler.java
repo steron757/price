@@ -11,7 +11,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.model.Mobile;
-import com.model.Retailer;
+import com.model.enums.Retailer;
+import com.util.CodeUtils;
 
 
 /**
@@ -23,31 +24,46 @@ import com.model.Retailer;
  */
 public class FortressCrawler extends Crawler{
 
-	private int i = 1;
+	public int i = 1;
 	private int pageNum;
 	private String domain = "http://www.fortress.com.hk/webproxy/product_listing.php?";	//Domain for getting data
 	private String link = "http://www.fortress.com.hk/tc/product/details.php?productfamily=";	//head of link
+	
+	private String mobile = "1";
+//	private String video = "2";
+	private String digital = "3";
+//	private String pc = "4";
+//	private String largeappliances = "5";
+//	private String smallappliance = "6";
+
+	String productType = "";
+
 	/**
-	 * filter brand followed :Mobile, Tablet PC, MP3 and multimedia player, Charger, Headphones
+	 * filter brand followed :Mobile(1), TV and Video(2), Digital products(3),
+	 * PC(4), Large Appliances(5), Small Appliances(6)</br>
+	 * Please don't use it directly and use getFilter() instead.
 	 */
-	private String filter = "[{\"brand\":[1]},{\"priceStart\":\"0\"},{\"priceEnd\":\"14980\"},{\"order\":\"\"}]";
-	//ÇëÇóÊ¾Àý£º
+	private String filter = "";
+	//request for example, refers to listing.php
 	//http://www.fortress.com.hk/tc/product/webproxy/product_listing.php?request=%5B%7B%22priceStart%22%3A%220%22%7D%2C%7B%22priceEnd%22%3A%2214980%22%7D%2C%7B%22order%22%3A%22%22%7D%5D&lang=tc&categoryID=-1&brandID=-1&viewmode=_LIVE&curPage=3
 
 
-	public FortressCrawler() {
-		super();
-		HomePage = domain + "request=";
-		HomePage += com.util.CodeUtils.encodeURIComponent(filter);
-		HomePage += "&lang=tc&categoryID=-1&brandID=-1&viewmode=_LIVE&curPage=";
+	public String getFilter() {
+		filter = "[{\"brand\":[" + productType + "]},{\"priceStart\":\"0\"},{\"priceEnd\":\"999999\"},{\"order\":\"\"}]";
+		return filter;
 	}
 
-	public FortressCrawler(String homepage) {
-		super(homepage);
-		HomePage = domain + "request=";
-		HomePage += com.util.CodeUtils.encodeURIComponent(filter);
-		HomePage += "&lang=tc&categoryID=-1&brandID=-1&viewmode=_LIVE&curPage=";
+	public FortressCrawler() {
+		super();
+		String requesturl;
+		productType = mobile;
+		requesturl = domain + "request=" + CodeUtils.encodeURIComponent(getFilter()) + "&lang=tc&categoryID=-1&brandID=-1&viewmode=_LIVE&curPage=";
+		urllist.add(requesturl);
+		productType = digital;
+		requesturl = domain + "request=" + CodeUtils.encodeURIComponent(getFilter()) + "&lang=tc&categoryID=-1&brandID=-1&viewmode=_LIVE&curPage=";
+		urllist.add(requesturl);
 	}
+
 
 	public static void main(String[] args) {
 		FortressCrawler nb = new FortressCrawler();
@@ -96,7 +112,9 @@ public class FortressCrawler extends Crawler{
 			}
 			System.out.println("Get web successfully! " + url);
 			if(i <= pageNum){
-				pendUrls.add(HomePage + ++i);
+				pendUrls.add(url.toString().split("curPage")[0] + "curPage=" + ++i);
+			}else{
+				i = 1;		//Reset the page when acquire data ended
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

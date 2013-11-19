@@ -25,6 +25,8 @@ public class Crawler extends ProductObserver{
 	List<String> pendUrls = new ArrayList<String>();
 	/** Home page */
 	String HomePage;
+
+	public static List<String> urllist = new ArrayList<String>();
 	
 	public List<Object> productList;
 	
@@ -35,6 +37,7 @@ public class Crawler extends ProductObserver{
 	
 	public Crawler() {
 		super();
+		urllist.clear();
 	}
 	
 	public String getDomain() {
@@ -49,38 +52,38 @@ public class Crawler extends ProductObserver{
 	}
 	
 	public synchronized void startCollect() {
-		pendUrls.add(HomePage);
-		System.out.println("Start!");
-		String tmp = getAUrl();
-		if(tmp != null){
-			URL url = null;
-			try {
-				url = new URL(tmp);
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-			productList = this.getData(url);
-		}
-		while (!pendUrls.isEmpty()) {
-			try {
-				String tmp2 = getAUrl();
-				if(tmp2 != null){
-					URL url = null;
-					url = new URL(tmp2);
-					List<?> next = this.getData(url);
-					for(Object p : next) {
-						productList.add(p);
-//						System.out.println("---------------------------");
-//						System.out.println(((Product) p).getBrand() + ((Product) p).getModel() + ((Product) p).getPrice());
-					}
+		for(String urls : urllist){
+			pendUrls.add(urls);
+			System.out.println("Start!");
+			String tmp = getAUrl();
+			if(tmp != null){
+				URL url = null;
+				try {
+					url = new URL(tmp);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
 				}
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IndexOutOfBoundsException e) {
-				e.printStackTrace();
+				productList = this.getData(url);
 			}
+			while (!pendUrls.isEmpty()) {
+				try {
+					String tmp2 = getAUrl();
+					if(tmp2 != null){
+						URL url = null;
+						url = new URL(tmp2);
+						List<?> next = this.getData(url);
+						for(Object p : next) {
+							productList.add(p);
+						}
+					}
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				} catch (IndexOutOfBoundsException e) {
+					e.printStackTrace();
+				}
+			}
+			this.notifyObserver(productList);
 		}
-		this.notifyObserver(productList);
 	}
 
 	public synchronized String getAUrl() {

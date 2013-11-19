@@ -47,7 +47,7 @@ h1 {
 
 .mod-menu .menu-item {
 	width: 220px;
-	border-top: solid 1px #76b8e8;
+	border-top: solid 2px #76b8e8;
 	border-bottom: solid 2px #76b8e8;
 	position: relative;
 	z-index: 22;
@@ -56,14 +56,16 @@ h1 {
 .mod-menu .menu-item li {
 	height: 47px;
 	line-height: 47px;
-	background: #def0fc;
-	border-top: solid 1px #98d4ff;
+	background: #f7fbfd;
+	border-left: solid 2px #98d4ff;
+	border-right: solid 2px #98d4ff;
 }
 
 .mod-menu .menu-item li.mouse-bg {
 	background: url() no-repeat #fff;
 	position: relative;
 	z-index: 22;
+	border-right:none;
 	margin-right: -4px;
 }
 
@@ -86,7 +88,7 @@ h1 {
 	left: 220px;
 	top: 1px;
 	background: #fff;
-	width: 573px;
+	width: 200px;
 	border: solid 1px #76b8e8;
 	box-shadow: 2px 0 10px #c0eff5;
 	z-index: 20;
@@ -123,4 +125,70 @@ h1 {
 	color: #ccc;
 	font-size: 12px;
 	padding: 0 10px;
+}
+
+
+/****************顶部菜单**************/
+
+body {
+	font: 12px Arial, Verdana, Tahoma, "宋体";
+}
+
+
+.menu_navcc {
+	width: 970px;
+	margin: 0 auto;
+}
+
+.menu_nav {
+	width: 970px;
+	height: 55px;
+	float: left;
+	margin-left: 300px;
+	margin-top: 15px;
+}
+
+.menu_nav .nav_content {
+	padding-left: 4px;
+	float: left;
+}
+
+.menu_nav .nav_content li {
+	width: 114px;
+	height: 55px;
+	padding-left: 50px;
+	padding-right: 10px;
+	float: left;
+	line-height: 55px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.menu_nav .nav_content li a {
+	color: #fff;
+	width: 114px;
+	height: 55px;
+	display: block;
+}
+
+.menu_nav .nav_content li.current {
+	line-height: 55px;
+}
+
+.menu_nav .nav_content li.current a,.menu_nav .nav_content li a:hover {
+	width: 114px;
+	height: 55px;
+	background: url(../image/nav_li_current.png) no-repeat bottom;
+	display: block;
+	color: #000;
+}
+
+.menu_nav_right {
+	padding-right: 20px;
+	float: right;
+	margin-left: 50px;
+	padding-top: 13px;
+	height: 23px;
+	padding-bottom: 12px;
 }

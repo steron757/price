@@ -16,12 +16,13 @@
 	</resultMap>
 
 	<select id="selectProduct" resultMap="ProductMap">
-		select id,brand,model,price,link,description,retailer,create_date from product
+		select id,producttype,brand,model,price,link,description,retailer,create_date from product
 	</select>
 	
 	<insert id="insertProduct" parameterClass="com.model.Product">
-		insert into product (brand,model,price,link,description,retailer,create_date) values
-		(#brand:VARCHAR#,#model:VARCHAR#,#price:VARCHAR#,#link:FLOAT#,#description:VARCHAR#,#retailer:VARCHAR#,NOW())
+		insert into product (producttype,brand,model,price,link,description,retailer,create_date) values
+		(#productType:VARCHAR#,#brand:VARCHAR#,#model:VARCHAR#,#price:VARCHAR#,#link:FLOAT#,
+		#description:VARCHAR#,#retailer:VARCHAR#,NOW())
 	</insert>
 	
 	<delete id="deleteProduct" parameterClass="java.lang.String">

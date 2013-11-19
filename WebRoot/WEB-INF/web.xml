@@ -7,7 +7,9 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-	
-	<!-- <listener> <listener-class>com.task.ContextListener</listener-class> 
-		</listener> -->
+<!-- 
+	<listener>
+		<listener-class>com.task.ContextListener</listener-class>
+	</listener>
+-->
 </web-app>

@@ -10,6 +10,7 @@ package com.model;
 public class Product {
 
 	private String id;
+	private String productType;
 	private String brand;
 	private String model;
 	private Float price;
@@ -24,6 +25,14 @@ public class Product {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getProductType() {
+		return productType;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
 	}
 
 	public String getBrand() {

@@ -11,7 +11,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.model.Mobile;
-import com.model.Retailer;
+import com.model.enums.ProductType;
+import com.model.enums.Retailer;
 
 /**
  * Broadway Crawler</br>
@@ -22,28 +23,43 @@ import com.model.Retailer;
  */
 public class BroadwayCrawler extends Crawler{
 
-//	private int i = 1;
-//	private int maxpage = 0;
-	private String domain = "http://www.broadway.com.hk";
-	List<Object> broadwayList = new ArrayList<Object>();
+	public static String domain = "http://www.broadway.com.hk";
+	//	Used when accessing the first page
+	public static String mobilesuffix = "/hotitems_sort/101/73";	//Mobile
+	public static String notebooksuffix = "/hotitems_sort/103/29";	//Notebook
+	public static String desktopsuffix = "/hotitems_sort/103/96";	//Desktop
+	public static String slrCamerasuffix = "/hotitems_sort/105/15";	//SLR Camera
+	public static String interchangeableCamerasuffix = "/hotitems_sort/105/24";	//Interchangeable lens Camera
+	public static String portableCamerasuffix = "/hotitems_sort/105/17";	//Portable Camera
+	public static String videocameraCamerasuffix = "/hotitems_sort/105/30";	//Video Camera
+	
 	
 	public BroadwayCrawler() {
-		this.HomePage = "http://www.broadway.com.hk/hotitems/mb";
+		urllist.add(domain + mobilesuffix);
+//		urllist.add(domain + notebooksuffix);
+//		urllist.add(domain + desktopsuffix);
+//		urllist.add(domain + slrCamerasuffix);
+//		urllist.add(domain + interchangeableCamerasuffix);
+//		urllist.add(domain + portableCamerasuffix);
+//		urllist.add(domain + videocameraCamerasuffix);
 	}
 	
-	public BroadwayCrawler(String homepage) {
-		super(homepage);
-	}
 
 	public static void main(String[] args) {
 		BroadwayCrawler nb = new BroadwayCrawler();
-		nb.HomePage = "http://www.broadway.com.hk/hotitems/mb";
 		nb.startCollect();
 	}
 
 	public List<Object> getData(URL url) {
 		BufferedReader br = null;
 		HttpURLConnection conn;
+		List<Object> broadwayList = new ArrayList<Object>();
+		Pattern tp = Pattern.compile("(.*?)type=(.*)");
+		Matcher tm = tp.matcher("http://www.broadway.com.hk/hotitems_sort/101/73?type=camera");
+		String urltype = "";
+		while (tm.find()) {
+			urltype = tm.group(2);
+		}
 		try {
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestProperty("contentType", "utf-8");
@@ -54,46 +70,71 @@ public class BroadwayCrawler extends Crawler{
 					break;
 			}
 			while ((line = br.readLine()) != null) {
-				// Product infos is in the same line
+				// Product information is in the same line
 				if (!line.contains("field-product-brand-value") && !line.contains("field title")
-						&& !line.contains("product-price")) { // title
+						&& !line.contains("product-price") && !line.contains("item-list")) {
+					// item-list:the paging div
 					continue;
 				} else {
 					Mobile broadway = new Mobile();
 					broadway.setRetailer(Retailer.BROADWAY.getName());
-					if (line.contains("field-product-brand-value")) {
-						//link and the brand
-						Pattern dp = Pattern.compile("(.*?)field-product-brand-value\">(.*?)</div>(.*?)");
-						Matcher dm = dp.matcher(line);
-						while (dm.find()) {
-							String a = dm.group(2);
-							Pattern ap = Pattern.compile("<a\\s.*?href=\"([^\"]+)\"[^>]*>(.*?)</a>");
-							Matcher am = ap.matcher(a);
-							while (am.find()) {
-								broadway.setLink(domain + am.group(1));	//link
-								broadway.setBrand(am.group(2));			//brand
+					//Set specified product type, return "undefined" if not defined in ProductType
+					broadway.setProductType(ProductType.getProductType(urltype).getName());
+					if (line.contains("<div class=\"item-list\"")) { // Bottom
+						while ((line = br.readLine()) != null) {
+							if ("".equals(line.trim())) {
+								continue;
+							}
+							if (line.contains("<li class=\"pager-next\"")) {
+								break;
 							}
 						}
-						//model
-						Pattern pp = Pattern.compile("(.*?)field title\">(.*?)</div>(.*?)");
-						Matcher pm = pp.matcher(line);
-						while (pm.find()) {
-							String a = pm.group(2);
-							Pattern ap = Pattern.compile("<a\\s.*?href=\"([^\"]+)\"[^>]*>(.*?)</a>");
-							Matcher am = ap.matcher(a);
-							while (am.find()) {
-								broadway.setModel(am.group(2));	//model
+						if (line != null) {
+							String next = "?page=";
+							Pattern np = Pattern.compile("<a\\s.*?href=\"([^\"]+)\"[^>]*>(.*?)");	//Get next page
+							Matcher nm = np.matcher(line);
+							while (nm.find()) {
+								next = nm.group(1);
+							}
+							if(!"".equals(next)){
+								pendUrls.add(domain + next);
 							}
 						}
-						//Price
-						Pattern prp = Pattern.compile("(.*?)product-price\">(.*?)</span>(.*?)");
-						Matcher prm = prp.matcher(line);
-						while (prm.find()) {
-							String price = prm.group(2);
-							price= price.replace("HKD", "").replace(",", "").trim();
-							broadway.setPrice(Float.parseFloat(price));	//Price
+					} else {
+						if (line.contains("field-product-brand-value")) {
+							//link and the brand
+							Pattern dp = Pattern.compile("(.*?)field-product-brand-value\">(.*?)</div>(.*?)");
+							Matcher dm = dp.matcher(line);
+							while (dm.find()) {
+								String a = dm.group(2);
+								Pattern ap = Pattern.compile("<a\\s.*?href=\"([^\"]+)\"[^>]*>(.*?)</a>");
+								Matcher am = ap.matcher(a);
+								while (am.find()) {
+									broadway.setLink(domain + am.group(1));	//link
+									broadway.setBrand(am.group(2));			//brand
+								}
+							}
+							//Model
+							Pattern pp = Pattern.compile("(.*?)field title\">(.*?)</div>(.*?)");
+							Matcher pm = pp.matcher(line);
+							while (pm.find()) {
+								String a = pm.group(2);
+								Pattern ap = Pattern.compile("<a\\s.*?href=\"([^\"]+)\"[^>]*>(.*?)</a>");
+								Matcher am = ap.matcher(a);
+								while (am.find()) {
+									broadway.setModel(am.group(2));	//model
+								}
+							}
+							//Price
+							Pattern prp = Pattern.compile("(.*?)product-price\">(.*?)</span>(.*?)");
+							Matcher prm = prp.matcher(line);
+							while (prm.find()) {
+								String price = prm.group(2);
+								price= price.replace("HKD", "").replace(",", "").trim();
+								broadway.setPrice(Float.parseFloat(price));	//Price
+							}
+							broadwayList.add(broadway);
 						}
-						broadwayList.add(broadway);
 					}
 				}
 			}
@@ -101,6 +142,7 @@ public class BroadwayCrawler extends Crawler{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		try {
 			br.close();
 		} catch (IOException e) {
