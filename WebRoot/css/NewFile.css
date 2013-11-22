@@ -1,4 +1,3 @@
-@CHARSET "UTF-8";
 ul {
 	margin: 0;
 	padding: 0;
@@ -32,8 +31,7 @@ a {
 	position: relative;
 	z-index: 1000;
 	left: -1px;
-	margin-left: 10px;
-	margin-top: 30px;
+	margin-left: 100px;
 }
 
 h1 {
@@ -46,7 +44,8 @@ h1 {
 
 .mod-menu .menu-item {
 	width: 220px;
-	border: solid 2px #76b8e8;
+	border-top: solid 1px #d59bb2;
+	border-bottom: solid 2px #d59bb2;
 	position: relative;
 	z-index: 22;
 }
@@ -54,8 +53,8 @@ h1 {
 .mod-menu .menu-item li {
 	height: 47px;
 	line-height: 47px;
-	background: #f7fbfd;
-	border-top: solid 1px #98d4ff;
+	background: #feebf3;
+	border-top: solid 1px #f0bfd3;
 }
 
 .mod-menu .menu-item li.mouse-bg {
@@ -65,10 +64,8 @@ h1 {
 	margin-right: -4px;
 }
 
-
-/** 一级菜单 */
 .mod-menu .menu-item a {
-	color: #000000;
+	color: #c81d61;
 	font-size: 16px;
 	padding-left: 33px;
 	display: block;
@@ -85,10 +82,10 @@ h1 {
 	left: 220px;
 	top: 1px;
 	background: #fff;
-	width: 200px;
-	border: solid 1px #76b8e8;
-	box-shadow: 2px 0 10px #c0eff5;
-	z-index: 50;
+	width: 573px;
+	border: solid 1px #F0BFD3;
+	box-shadow: 2px 0 10px rgba(210, 33, 103, 0.25);
+	z-index: 20;
 }
 
 .mod-menu .menu-cont-list {
@@ -96,7 +93,7 @@ h1 {
 }
 
 .mod-menu .menu-cont-list li {
-	border-bottom: dotted 1px #5dcee0;
+	border-bottom: dotted 1px #f0bfd3;
 	padding: 10px 0;
 }
 
@@ -122,71 +119,4 @@ h1 {
 	color: #ccc;
 	font-size: 12px;
 	padding: 0 10px;
-}
-
-
-
-/****************顶部菜单**************/
-
-body {
-	font: 12px Arial, Verdana, Tahoma, "宋体";
-}
-
-
-.menu_navcc {
-	width: 970px;
-	margin: 0 auto;
-}
-
-.menu_nav {
-	width: 970px;
-	height: 55px;
-	float: left;
-	margin-left: 300px;
-	margin-top: 15px;
-}
-
-.menu_nav .nav_content {
-	padding-left: 4px;
-	float: left;
-}
-
-.menu_nav .nav_content li {
-	width: 114px;
-	height: 55px;
-	padding-left: 50px;
-	padding-right: 10px;
-	float: left;
-	line-height: 55px;
-	text-align: center;
-	font-size: 14px;
-	font-weight: bold;
-}
-
-.menu_nav .nav_content li a {
-	color: #fff;
-	width: 114px;
-	height: 55px;
-	display: block;
-}
-
-.menu_nav .nav_content li.current {
-	line-height: 55px;
-}
-
-.menu_nav .nav_content li.current a,.menu_nav .nav_content li a:hover {
-	width: 114px;
-	height: 55px;
-	background: url(../image/nav_li_current.png) no-repeat bottom;
-	display: block;
-	color: #000;
-}
-
-.menu_nav_right {
-	padding-right: 20px;
-	float: right;
-	margin-left: 50px;
-	padding-top: 13px;
-	height: 23px;
-	padding-bottom: 12px;
 }

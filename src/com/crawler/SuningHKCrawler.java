@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.model.Mobile;
+import com.model.Product;
 import com.model.enums.Retailer;
 import com.model.enums.Subcategory;
 
@@ -99,9 +99,73 @@ public class SuningHKCrawler extends Crawler{
 	public static void main(String[] args) {
 		SuningHKCrawler nb = new SuningHKCrawler();
 		nb.startCollect();
+//		new SuningHKCrawler().getHotPorduct();
 	}
 
+	/**
+	 * Hot products
+	 * 
+	 * @return
+	 */
+	public List<Product> getHotPorduct(){
+		String url = "http://www.cnsuning.com.hk/tch";
+		String imageurl = "http://www.cnsuning.com.hk";
+		BufferedReader br = null;
+		HttpURLConnection conn;
+		List<Product> hotList = new ArrayList<Product>();
+		try {
+			conn = (HttpURLConnection) new URL(url).openConnection();
+			conn.setRequestProperty("contentType", "utf-8");
+			br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line;
+			while ((line = br.readLine()) != null) { // Delete useless code
+				if (line.contains("hot-product-slide")){	//Product list page
+					break;
+				}
+			}
+			Product hot = null;
+			while ((line = br.readLine()) != null) {
+				if(line.contains("index-right-col")) {		//Hot product area end
+					break;
+				}
+				Pattern np = Pattern.compile("(.*?)hot-product-slide\"><a href=\".(.*?)\">");
+				Matcher nm = np.matcher(line);
+				while (nm.find()) {
+					String link = nm.group(2);
+					hot = new Product();
+					hot.setLink(url + link);
+				}
+				Pattern ip = Pattern.compile("<img src=\"(.*?)\"");
+				Matcher im = ip.matcher(line);
+				while (im.find()) {
+					String link = im.group(1);
+					hot.setImage(imageurl + link);
+				}
+				Pattern mp = Pattern.compile("<div class=\"txt\">(.*?)</div>");
+				Matcher mm = mp.matcher(line);
+				while (mm.find()) {
+					String brand = mm.group(1);
+					hot.setBrand(brand);
+					break;
+				}
+				if(hot != null) {
+					hot.setRetailer(Retailer.SUNINGHK.getName());
+					hotList.add(hot);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return hotList;
+	}
+	
 	public List<Object> getData(URL url) {
+		String imageurl = "http://www.cnsuning.com.hk";
 		BufferedReader br = null;
 		HttpURLConnection conn;
 		List<Object> suningList = new ArrayList<Object>();
@@ -122,10 +186,11 @@ public class SuningHKCrawler extends Crawler{
 				}
 			}
 			while ((line = br.readLine()) != null) {
-				if (!line.contains("class=\"caption\"") && !line.contains("class=\"sprint") && !line.contains("<div class=\"pager clear")){
+				if (!line.contains("class=\"caption\"") && !line.contains("class=\"sprint")
+						&& !line.contains("<div class=\"pager clear") && !line.contains("<div class=\"thumbs\">")) {
 					continue;
 				} else {
-					Mobile suningHK = new Mobile();
+					Product suningHK = new Product();
 					suningHK.setRetailer(Retailer.SUNINGHK.getName());
 					suningHK.setProductType(Subcategory.getSubcategories(urltype).getName());
 					String detailURL = "";
@@ -151,6 +216,14 @@ public class SuningHKCrawler extends Crawler{
 							}
 						}
 					} else {
+						if(line.contains("<div class=\"thumbs\">")){	//Image
+							Pattern ap = Pattern.compile("<div class=\"thumbs\"><img src=\"(.*?)\"");
+							Matcher am = ap.matcher(line);
+							while (am.find()) {
+								String img = imageurl + am.group(1);
+								suningHK.setImage(img);
+							}
+						}
 						if(line.contains("class=\"sprint")){	//Link
 							Pattern ap = Pattern.compile("<a\\s.*?href=\"([^\"]+)\"[^>]*>(.*?)");
 							Matcher am = ap.matcher(line);

@@ -1,6 +1,8 @@
 package com.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Encode/Decode Tools</br>
@@ -11,20 +13,39 @@ import java.io.UnsupportedEncodingException;
 public class CodeUtils {
 	
 	/**
-	 * Unicode Transform
-	 * 
-	 * @return
+	 * Transform Chinese character to Unicode
+	 * @param s Chinese character
+	 * @return Unicode character
 	 */
-	public static String decodeFromUnicode(String input){
-		String unDecodedString = input;
-		String decodedString = "";
-		try {
-			decodedString = new String(unDecodedString.getBytes("UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+	public static String stringToUnicode(String s) {
+		String str = "";
+		for (int i = 0; i < s.length(); i++) {
+			int ch = (int) s.charAt(i);
+			if (ch > 255)
+				str += "\\u" + Integer.toHexString(ch);
+			else
+				str += "\\" + Integer.toHexString(ch);
 		}
-		return decodedString;
+		return str;
+
 	}
+
+	/**
+	 * Transform Unicode to Chinese character
+	 * @param str Unicode character
+	 * @return Chinese character
+	 */
+	public static String unicodeToString(String str) {
+		Pattern pattern = Pattern.compile("(\\\\u(\\p{XDigit}{4}))");
+		Matcher matcher = pattern.matcher(str);
+		char ch;
+		while (matcher.find()) {
+			ch = (char) Integer.parseInt(matcher.group(2), 16);
+			str = str.replace(matcher.group(1), ch + "");
+		}
+		return str;
+	}
+
 	
 	public static final String ALLOWED_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.!~*'()";
 
@@ -38,7 +59,6 @@ public class CodeUtils {
 		if (input == null || "".equals(input)) {
 			return input;
 		}
-
 		int l = input.length();
 		StringBuilder o = new StringBuilder(l * 3);
 		try {
@@ -81,12 +101,9 @@ public class CodeUtils {
 		char actualChar;
 
 		StringBuffer buffer = new StringBuffer();
-
 		int bytePattern, sumb = 0;
-
 		for (int i = 0, more = -1; i < encodedURI.length(); i++) {
 			actualChar = encodedURI.charAt(i);
-
 			switch (actualChar) {
 			case '%': {
 				actualChar = encodedURI.charAt(++i);
@@ -138,6 +155,5 @@ public class CodeUtils {
 //		System.out.println(t);
 //		System.out.println(encodeURIComponent(t));
 //		System.out.println(decodeURIComponent(t));
-		System.out.println(("\u4e00\u5e74\u786c\u4ef6\u4fdd"));
 	}
 }

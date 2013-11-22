@@ -1,6 +1,6 @@
 <%@page import="com.model.enums.Subcategory"%>
 <%@page import="com.model.enums.ProductType"%>
-<%@ page language="java" import="java.util.*" pageEncoding="GB18030"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -8,39 +8,46 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 <base href="<%=basePath%>">
 <link media=screen href="<%=basePath%>/css/leftmenu.css" type=text/css rel=stylesheet>
 <link media=screen href="<%=basePath%>/css/main.css" type=text/css rel=stylesheet>
+<link rel="stylesheet" type="text/css" href="<%=basePath%>/css/demo.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>/css/style.css" />
+
 <script src="<%=basePath%>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.gallery.js"></script>
+<script type="text/javascript" src="js/modernizr.custom.53451.js"></script>
 <script type="text/javascript">
+
 	var l;
 	var t;
 	var menuItem;
 	var _index;
 	$(document).ready(menu_init);
 	function menu_init() {
-		//var mod_menu = $(".mod-menu");//µ¼º½Ä£¿éÇø
-		menu();//Ö´ĞĞÕ¹¿ª¶ş¼¶²Ëµ¥º¯
+		//var mod_menu = $(".mod-menu");//å¯¼èˆªæ¨¡å—åŒº
+		menu();//æ‰§è¡Œå±•å¼€äºŒçº§èœå•å‡½
 		//setTimeout(menu(),1000)
 	}
 	var menu = function() {
-		menuItem = $(".menu-item li");//Ñ¡Ôñµ¼º½ÁĞ±í
-		menuItem.each(menu_each);/*µ¼º½²Ëµ¥*/
-		menuItem.mouseleave(menu1_leave);/*µ¼º½²Ëµ¥*/
+		menuItem = $(".menu-item li");//é€‰æ‹©å¯¼èˆªåˆ—è¡¨
+		menuItem.each(menu_each);/*å¯¼èˆªèœå•*/
+		menuItem.mouseleave(menu1_leave);/*å¯¼èˆªèœå•*/
 		$(".mod-menu").mouseleave(menu2_mouse_leave);
-	};//Õ¹¿ª¶ş¼¶²Ëµ¥
+	};//å±•å¼€äºŒçº§èœå•
 	var menu_each = function() {
 		$(this).mouseenter(menu_mouse_enter);
 	};
 	var menu_mouse_enter = function() {
-		l = $(this);//»ñÈ¡µ±Ç°Êó±ê»¬¹ıµÄÁĞ±íµÄ¶¥²¿×ø±ê
-		_index = $(this).index();//»ñÈ¡µ±Ç°Ñ¡Ôñ²Ëµ¥ÁĞ±íµÄË÷Òı
+		l = $(this);//è·å–å½“å‰é¼ æ ‡æ»‘è¿‡çš„åˆ—è¡¨çš„é¡¶éƒ¨åæ ‡
+		_index = $(this).index();//è·å–å½“å‰é€‰æ‹©èœå•åˆ—è¡¨çš„ç´¢å¼•
 		menu_mouse_enter_show(_index);
 	};
 	function menu_mouse_enter_show(_index) {
-		var y = l.position().top + 1;//»ñÈ¡µ±Ç°Êó±ê»¬¹ıµÄÁĞ±íµÄ¶¥²¿×ø±ê
+		var y = l.position().top + 1;//è·å–å½“å‰é¼ æ ‡æ»‘è¿‡çš„åˆ—è¡¨çš„é¡¶éƒ¨åæ ‡
 		$(".menu-cont").show();
-		$(".menu-cont").css("top", y);//ĞèÒªÏÔÊ¾µÄ¶ÔÓ¦Ë÷ÒıÄÚÈİ
+		$(".menu-cont").css("top", y);//éœ€è¦æ˜¾ç¤ºçš„å¯¹åº”ç´¢å¼•å†…å®¹
 		l.addClass("mouse-bg").siblings().removeClass("mouse-bg");
 		$(".menu-cont>div").eq(_index).show().siblings().hide();
 	}
@@ -66,10 +73,10 @@
 		<div class="headcontent" style="background-image: url('image/headbg2.png');width: 98%;background-repeat: repeat-x;float: left;">
 			<div class="menu_nav">
 				<ul class="nav_content">
-					<li class="current"><a href="#"><span>Ê×Ò³</span></a></li>
-					<li><a href="#"><span>°ÙÀÏ…R</span></a></li>
-					<li><a href="#"><span>ÌKŒÏã¸Û</span></a></li>
-					<li><a href="#"><span>ØSÉ</span></a></li>
+					<li class="current"><a href="#"><span>é¦–é¡µ</span></a></li>
+					<li><a href="#"><span>ç™¾è€åŒ¯</span></a></li>
+					<li><a href="#"><span>è˜‡å¯§é¦™æ¸¯</span></a></li>
+					<li><a href="#"><span>è±æ¾¤</span></a></li>
 				</ul>
 				<div class="menu_nav_right"></div>
 			</div>
@@ -87,7 +94,7 @@
 						%>		<li class=""><a href="#"><%=p.getDescription() %></a></li>
 						<% } %>
 					</ul>
-					<!--Ò»¼¶²Ëµ¥ÁĞ±í-->
+					<!--ä¸€çº§èœå•åˆ—è¡¨-->
 					<div class="menu-cont hide" style="display: none; top: 241px;">
 						<% for(ProductType p : ProductType.values()){
 								if(p == ProductType.NULL) break; %>
@@ -103,11 +110,34 @@
 						<% } %>
 					</div>
 				</div>
-				<!--¶ş¼¶²Ëµ¥ÄÚÈİ-->
+				<!--äºŒçº§èœå•å†…å®¹-->
 			</div>
 		</div>
-		<div class="rightcontent"></div>
+		<div class="rightcontent">
+        <div class="container">
+			<section id="dg-container" class="dg-container">
+				<div class="dg-wrapper">
+				<a href="#"><img src="image/product/1.jpg" alt="Slide 1"></a>
+				<a href="#"><img src="image/product/2.jpg" alt="Slide 2"></a>
+				<a href="#"><img src="image/product/3.jpg" alt="Slide 3"></a>
+				<a href="#"><img src="image/product/4.png" alt="Slide 4"></a>
+				<a href="#"><img src="image/product/5.jpg" alt="Slide 5"></a>
+				<a href="#"><img src="image/product/6.jpg" alt="Slide 6"></a>
+				<a href="#"><img src="image/product/7.jpg" alt="Slide 7"></a>
+			</div>
+				<nav>	
+					<span class="dg-prev">&lt;</span>
+					<span class="dg-next">&gt;</span>
+				</nav>
+			</section>
+			</div>
+		</div>
 	</div>
 	<div class="bottom"></div>
+	<script type="text/javascript">
+		$(function() {
+			$('#dg-container').gallery();
+		});
+	</script>
 </body>
 </html>

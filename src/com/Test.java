@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.dao.ProductDao;
-import com.model.Mobile;
 import com.model.Product;
 
 @SuppressWarnings("unused")

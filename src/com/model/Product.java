@@ -18,6 +18,7 @@ public class Product {
 	private String description;
 	private String retailer;
 	private String createDate;
+	private String image;	//image location
 	
 	public String getId() {
 		return id;
@@ -89,6 +90,14 @@ public class Product {
 
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }

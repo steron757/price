@@ -15,6 +15,8 @@ public enum Retailer {
 	SUNINGHK("SuningHK"),
 	/** Fortress */
 	FORTRESS("Fortress"),
+	/** Chung Yuen */
+	CHUNGYUEN("ChungYuen"),
 	/** NULL */
 	NULL("");
 	

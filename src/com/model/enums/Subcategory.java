@@ -23,12 +23,12 @@ public enum Subcategory {
 	/** Washing machine */
 	WASHINGMACHINE("washer", ProductType.LARGEAPPLIANCES, "洗衣機"),
 	/** Kitchen appliance */
-	KITCHEN("kitchen", ProductType.LARGEAPPLIANCES, "廚房大型電器"),
+	KITCHEN("kitchen", ProductType.LARGEAPPLIANCES, "大型電器"),
 	
 	/** Household appliance */
-	HOUSEHOLD("household", ProductType.SMALLAPPLIANCES, "廚房小型電器"),
+	HOUSEHOLD("household", ProductType.SMALLAPPLIANCES, "家居電器"),
 	/** Smart kitchen appliance, Suning only*/
-	SMARTKITCHEN("smartkitchen", ProductType.SMALLAPPLIANCES, "廚房小型電器"),
+	SMARTKITCHEN("smartkitchen", ProductType.SMALLAPPLIANCES, "小型電器"),
 	/** Personal Care product, Fortress classifies it to Super type. */
 	PERSONALCARE("personalcare", ProductType.SMALLAPPLIANCES, "個人護理"),
 	
