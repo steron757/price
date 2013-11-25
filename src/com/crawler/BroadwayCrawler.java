@@ -77,7 +77,7 @@ public class BroadwayCrawler extends Crawler{
 		try {
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestProperty("contentType", "utf-8");
-			br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			String line;
 			while ((line = br.readLine()) != null) { // Delete useless code
 				if (line.contains("product-list-table"))
@@ -167,14 +167,14 @@ public class BroadwayCrawler extends Crawler{
 
 	public List<Product> getHotProduct(){
 		String url = "http://www.broadway.com.hk/hotitems/mb";
-		String imageurl = "http://www.cnsuning.com.hk";
+		String imageurl = "http://www.broadway.com.hk";
 		BufferedReader br = null;
 		HttpURLConnection conn;
 		List<Product> hotList = new ArrayList<Product>();
 		try {
 			conn = (HttpURLConnection) new URL(url).openConnection();
 			conn.setRequestProperty("contentType", "utf-8");
-			br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			String line;
 			while ((line = br.readLine()) != null) { // Delete useless code
 				if (line.contains("field-product-image-key-fid")){	//Product list page
@@ -201,8 +201,10 @@ public class BroadwayCrawler extends Crawler{
 					hot.setModel(model);
 				}
 				if(hot != null) {
-					hot.setRetailer(Retailer.SUNINGHK.getName());
-					hotList.add(hot);
+					hot.setRetailer(Retailer.BROADWAY.getName());
+					if(!hotList.contains(hot)){
+						hotList.add(hot);
+					}
 				}
 			}
 		} catch (IOException e) {

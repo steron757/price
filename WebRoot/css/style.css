@@ -4,7 +4,7 @@
 	position: relative;
 }
 .dg-wrapper{
-	width: 481px;
+	width: 52%;
 	height: 316px;
 	margin: 0 auto;
 	position: relative;
@@ -20,7 +20,7 @@
 	perspective: 1000px;
 }
 .dg-wrapper a{
-	width: 482px;
+	width: 52%;
 	height: 316px;
 	display: block;
 	position: absolute;
@@ -59,7 +59,7 @@
 	width: 58px;
 	position: absolute;
 	z-index: 1000;
-	bottom: 40px;
+	bottom: 60px;
 	left: 50%;
 	margin-left: -29px;
 }

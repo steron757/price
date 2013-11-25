@@ -37,4 +37,12 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 	public boolean deleteProduct(String id){
 		return this.getSqlMapClientTemplate().delete("deleteProduct", id) > 0;
 	}
+
+	/** (non-Javadoc)
+	 * @see com.dao.impl.ProductDao#insertHotProduct(java.lang.String)
+	 */
+	public boolean insertHotProduct(Product product) {
+		Object obj = this.getSqlMapClientTemplate().insert("insertHotProduct", product);
+		return obj != null;
+	}
 }

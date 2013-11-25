@@ -20,6 +20,9 @@ public class ProductObserver implements Observable {
 	ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 	ProductDao pdao = (ProductDao) ctx.getBean("productDao");
 	
+	/**
+	 * ALL PRODUCT LIST
+	 */
 	public void notifyObserver(List<Object> productList) {
 		if (productList == null) {
 			return;
@@ -30,13 +33,30 @@ public class ProductObserver implements Observable {
 		}
 		for(Object o : productList){
 			Product p = (Product) o;
-			if("http://www.fortress.com.hk/tc/product/details.php?productfamily=ASENMOMENTUMBK".equals(p.getLink())){
-				pdao.insertProduct(p);
-			}else
 			pdao.insertProduct(p);
 		}
 
 		System.out.println("****************************Status Changed****************************");
 	}
 
+	/**
+	 * HOT PRODUCT LIST
+	 * @param hotproductList
+	 * @param i
+	 */
+	public void notifyHotProduct(List<Product> hotproductList) {
+		if (hotproductList == null) {
+			return;
+		}
+		for(Product p : hotproductList) {
+			System.out.println("---------------------------");
+			System.out.println(p.getBrand() + p.getModel() + p.getPrice());
+		}
+		for(Object o : hotproductList){
+			Product p = (Product) o;
+			pdao.insertHotProduct(p);
+		}
+
+		System.out.println("****************************Hot Product Finished****************************");
+	}
 }

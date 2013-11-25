@@ -12,4 +12,6 @@ public interface ProductDao {
 
 	public abstract boolean deleteProduct(String id);
 
+	public abstract boolean insertHotProduct(Product p);
+
 }

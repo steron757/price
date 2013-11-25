@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.model.Product;
 import com.observer.ProductObserver;
 
 /**
@@ -29,6 +30,7 @@ public class Crawler extends ProductObserver{
 	public static List<String> urllist = new ArrayList<String>();
 	
 	public List<Object> productList;
+	public List<Product> hotproductList;
 	
 	public Crawler(String homepage) {
 		super();
@@ -84,7 +86,11 @@ public class Crawler extends ProductObserver{
 			}
 			this.notifyObserver(productList);
 		}
+		
+		hotproductList = this.getHotProduct();
+		this.notifyHotProduct(hotproductList);
 	}
+
 
 	public synchronized String getAUrl() {
 		String tmpAUrl = null;
@@ -97,6 +103,10 @@ public class Crawler extends ProductObserver{
 		return tmpAUrl;
 	}
 
+	public synchronized List<Product> getHotProduct() {
+		return hotproductList;
+	}
+	
 	public synchronized List<Object> getData(URL url) {
 		return productList;
 	}

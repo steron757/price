@@ -24,16 +24,16 @@ public class GetDataTask extends TimerTask {
 //			System.out.println("***********************Broadway Polling Thread************************");
 //			craw.startCollect();
 //		}
-//		craw = new FortressCrawler();
-//		synchronized (craw) {
-//			System.out.println("************************Fortress Polling Thread************************");
-//			craw.startCollect();
-//		}
-		craw = new SuningHKCrawler();
+		craw = new FortressCrawler();
 		synchronized (craw) {
-			System.out.println("***********************Suning HK Polling Thread************************");
+			System.out.println("************************Fortress Polling Thread************************");
 			craw.startCollect();
 		}
+//		craw = new SuningHKCrawler();
+//		synchronized (craw) {
+//			System.out.println("***********************Suning HK Polling Thread************************");
+//			craw.startCollect();
+//		}
 	}
 
 }

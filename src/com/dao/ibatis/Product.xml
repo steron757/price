@@ -13,19 +13,26 @@
 		<result property="description" column="description" jdbcType="VARCHAR" />
 		<result property="retailer" column="retailer" jdbcType="VARCHAR" />
 		<result property="createDate" column="create_date" jdbcType="VARCHAR" />
+		<result property="image" column="image" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="selectProduct" resultMap="ProductMap">
-		select id,producttype,brand,model,price,link,description,retailer,create_date from product
+		select id,producttype,brand,model,price,link,description,retailer,create_date,image from product
 	</select>
 	
 	<insert id="insertProduct" parameterClass="com.model.Product">
-		insert into product (producttype,brand,model,price,link,description,retailer,create_date) values
+		insert into product (producttype,brand,model,price,link,description,retailer,create_date,image) values
 		(#productType:VARCHAR#,#brand:VARCHAR#,#model:VARCHAR#,#price:VARCHAR#,#link:FLOAT#,
-		#description:VARCHAR#,#retailer:VARCHAR#,NOW())
+		#description:VARCHAR#,#retailer:VARCHAR#,NOW(),#image:VARCHAR#)
 	</insert>
 	
 	<delete id="deleteProduct" parameterClass="java.lang.String">
 		delete from product where id=#id:VARCHAR#
 	</delete>
+	
+	<insert id="insertHotProduct" parameterClass="com.model.Product">
+		insert into hotproduct (producttype,brand,model,price,link,description,retailer,create_date,image) values
+		(#productType:VARCHAR#,#brand:VARCHAR#,#model:VARCHAR#,#price:VARCHAR#,#link:FLOAT#,
+		#description:VARCHAR#,#retailer:VARCHAR#,NOW(),#image:VARCHAR#)
+	</insert>
 </sqlMap>

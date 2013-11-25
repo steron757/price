@@ -53,7 +53,7 @@ public enum Subcategory {
 //	HOMEAUDIO("homeaudio", ProductType.VIDEO),
 	
 	/** Null */
-	NULL("", ProductType.NULL);
+	NULL("undefined", ProductType.NULL);
 
 	public static Subcategory getSubcategories(String name) {
 		if (name == null)
@@ -63,6 +63,7 @@ public enum Subcategory {
 				return r;
 			}
 		}
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+name);
 		return NULL;
 	}
 

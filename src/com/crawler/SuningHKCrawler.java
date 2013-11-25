@@ -107,7 +107,7 @@ public class SuningHKCrawler extends Crawler{
 	 * 
 	 * @return
 	 */
-	public List<Product> getHotPorduct(){
+	public List<Product> getHotProduct(){
 		String url = "http://www.cnsuning.com.hk/tch";
 		String imageurl = "http://www.cnsuning.com.hk";
 		BufferedReader br = null;
@@ -116,7 +116,7 @@ public class SuningHKCrawler extends Crawler{
 		try {
 			conn = (HttpURLConnection) new URL(url).openConnection();
 			conn.setRequestProperty("contentType", "utf-8");
-			br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			String line;
 			while ((line = br.readLine()) != null) { // Delete useless code
 				if (line.contains("hot-product-slide")){	//Product list page
@@ -144,13 +144,15 @@ public class SuningHKCrawler extends Crawler{
 				Pattern mp = Pattern.compile("<div class=\"txt\">(.*?)</div>");
 				Matcher mm = mp.matcher(line);
 				while (mm.find()) {
-					String brand = mm.group(1);
-					hot.setBrand(brand);
+					String model = mm.group(1);
+					hot.setModel(model);
 					break;
 				}
 				if(hot != null) {
 					hot.setRetailer(Retailer.SUNINGHK.getName());
-					hotList.add(hot);
+					if(!hotList.contains(hot)){
+						hotList.add(hot);
+					}
 				}
 			}
 		} catch (IOException e) {
@@ -178,7 +180,7 @@ public class SuningHKCrawler extends Crawler{
 		try {
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestProperty("contentType", "utf-8");
-			br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			String line;
 			while ((line = br.readLine()) != null) { // Delete useless code
 				if (line.contains("<ul class=\"products-list")){	//Product list page

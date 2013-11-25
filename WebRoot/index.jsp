@@ -73,7 +73,7 @@
 		<div class="headcontent" style="background-image: url('image/headbg2.png');width: 98%;background-repeat: repeat-x;float: left;">
 			<div class="menu_nav">
 				<ul class="nav_content">
-					<li class="current"><a href="#"><span>首页</span></a></li>
+					<li class="current"><a href="#"><span>首頁</span></a></li>
 					<li><a href="#"><span>百老匯</span></a></li>
 					<li><a href="#"><span>蘇寧香港</span></a></li>
 					<li><a href="#"><span>豐澤</span></a></li>
@@ -91,7 +91,8 @@
 						<% for(ProductType p : ProductType.values()){
 								if(p == ProductType.NULL)
 									break;
-						%>		<li class=""><a href="#"><%=p.getDescription() %></a></li>
+						%>
+						<li class=""><a href="#"><%=p.getDescription() %></a></li>
 						<% } %>
 					</ul>
 					<!--一级菜单列表-->
@@ -114,22 +115,30 @@
 			</div>
 		</div>
 		<div class="rightcontent">
-        <div class="container">
-			<section id="dg-container" class="dg-container">
-				<div class="dg-wrapper">
-				<a href="#"><img src="image/product/1.jpg" alt="Slide 1"></a>
-				<a href="#"><img src="image/product/2.jpg" alt="Slide 2"></a>
-				<a href="#"><img src="image/product/3.jpg" alt="Slide 3"></a>
-				<a href="#"><img src="image/product/4.png" alt="Slide 4"></a>
-				<a href="#"><img src="image/product/5.jpg" alt="Slide 5"></a>
-				<a href="#"><img src="image/product/6.jpg" alt="Slide 6"></a>
-				<a href="#"><img src="image/product/7.jpg" alt="Slide 7"></a>
+	        <div class="container">
+				<section id="dg-container" class="dg-container">
+					<div class="dg-wrapper">
+						<a href="#"><img src="image/product/1.jpg" alt="Slide 1"></a>
+						<a href="#"><img src="image/product/2.jpg" alt="Slide 2"></a>
+						<a href="#"><img src="image/product/3.jpg" alt="Slide 3"></a>
+						<a href="#"><img src="image/product/4.png" alt="Slide 4"></a>
+						<a href="#"><img src="image/product/5.jpg" alt="Slide 5"></a>
+						<a href="#"><img src="image/product/6.jpg" alt="Slide 6"></a>
+						<a href="#"><img src="image/product/7.jpg" alt="Slide 7"></a>
+					</div>
+					<nav>	
+						<span class="dg-prev">&lt;</span>
+						<span class="dg-next">&gt;</span>
+					</nav>
+				</section>
 			</div>
-				<nav>	
-					<span class="dg-prev">&lt;</span>
-					<span class="dg-next">&gt;</span>
-				</nav>
-			</section>
+			<div>
+				<a href="#"><img src="http://www.fortress.com.hk/uploads/images/product/small/ASAMN9005BK01.jpg"></a>
+				<a href="#"><img src="http://www.fortress.com.hk/uploads/images/product/small/ASAMI9500BK01.jpg"></a>
+				<a href="#"><img src="http://www.fortress.com.hk/uploads/images/product/small/ASAMI9505BK01.jpg"></a>
+				<a href="#"><img src="http://www.fortress.com.hk/uploads/images/product/small/ASAMN9000BK01.jpg"></a>
+				<a href="#"><img src="http://www.fortress.com.hk/uploads/images/product/small/ASAMI9300BL01.JPG"></a>
+				<a href="#"><img src="http://www.fortress.com.hk/uploads/images/product/small/ASAMN7100GY01.JPG"></a>
 			</div>
 		</div>
 	</div>

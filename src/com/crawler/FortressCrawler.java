@@ -16,6 +16,7 @@ import com.model.Product;
 import com.model.enums.Retailer;
 import com.model.enums.Subcategory;
 import com.util.CodeUtils;
+import com.util.StringUtil;
 
 
 /**
@@ -71,6 +72,7 @@ public class FortressCrawler extends Crawler{
 	}
 
 	public List<Product> getHotProduct(){
+		System.out.println("**********************HOT PRODUCT*******************");
 		String url = "http://www.fortress.com.hk/tc/home/";
 		String linkurl = "http://www.fortress.com.hk/tc";
 		String imageurl = "http://www.fortress.com.hk";
@@ -80,7 +82,8 @@ public class FortressCrawler extends Crawler{
 		try {
 			conn = (HttpURLConnection) new URL(url).openConnection();
 			conn.setRequestProperty("contentType", "utf-8");
-			br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			conn.setRequestProperty("Accept-Charset", "utf-8");
+			br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			String line;
 			while ((line = br.readLine()) != null) { // Delete useless code
 				if (line.contains("pagination hot")){	//Hot Product list page
@@ -93,7 +96,7 @@ public class FortressCrawler extends Crawler{
 					break;
 				}
 //				System.out.println(line);
-				Pattern np = Pattern.compile("<a href=\"..(.*?)>");
+				Pattern np = Pattern.compile("<a href=\"..(.*?)\">");
 				Matcher nm = np.matcher(line);
 				while (nm.find()) {
 //					System.out.println(line);
@@ -122,13 +125,15 @@ public class FortressCrawler extends Crawler{
 						p = Pattern.compile("(.*?)class=\"productPrice\">(.*?)</(.*?)");
 						m = p.matcher(line);
 						while (m.find()) {
-							hot.setPrice(Float.parseFloat(m.group(2).replace("$", "").replace(",", "")));
+							hot.setPrice(Float.parseFloat(m.group(2).replace("HK", "").replace("$", "").replace(",", "")));
 						}
 					}
 				}
 				if(hot != null) {
-					hot.setRetailer(Retailer.SUNINGHK.getName());
-					hotList.add(hot);
+					hot.setRetailer(Retailer.FORTRESS.getName());
+					if(!hotList.contains(hot) && StringUtil.isNotEmpty(hot.getModel())){
+						hotList.add(hot);
+					}
 				}
 			}
 		} catch (IOException e) {
@@ -141,6 +146,7 @@ public class FortressCrawler extends Crawler{
 		}
 		return hotList;
 	}
+	
 	public List<Object> getData(URL url) {
 		BufferedReader br = null;
 		HttpURLConnection conn;
@@ -154,7 +160,7 @@ public class FortressCrawler extends Crawler{
 		try {
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestProperty("contentType", "utf-8");
-			br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			String line;
 			while ((line = br.readLine()) != null) {
 				String head = line.substring(1, 200);	//Get number per page and the total amount
@@ -190,7 +196,7 @@ public class FortressCrawler extends Crawler{
 			}
 			System.out.println("Get web successfully! " + url);
 			if(i <= pageNum){
-				pendUrls.add(url.toString().split("curPage")[0] + "curPage=" + ++i);
+				pendUrls.add(url.toString().split("curPage")[0] + "curPage=" + ++i + "&type=" + urltype);
 			}else{
 				i = 1;		//Reset the page when acquire data ended
 			}
