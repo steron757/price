@@ -63,7 +63,6 @@ public enum Subcategory {
 				return r;
 			}
 		}
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+name);
 		return NULL;
 	}
 

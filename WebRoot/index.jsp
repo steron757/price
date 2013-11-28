@@ -1,6 +1,6 @@
 <%@page import="com.model.enums.Subcategory"%>
 <%@page import="com.model.enums.ProductType"%>
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -16,8 +16,10 @@
 <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/style.css" />
 
 <script src="<%=basePath%>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/jquery.gallery.js"></script>
-<script type="text/javascript" src="js/modernizr.custom.53451.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/jquery.gallery.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/modernizr.custom.53451.js"></script>
+
+
 <script type="text/javascript">
 
 	var l;
@@ -59,6 +61,7 @@
 		menuItem.removeClass("mouse-bg");
 	};
 </script>
+
 </head>
 
 <body>
@@ -132,18 +135,13 @@
 					</nav>
 				</section>
 			</div>
-			<div>
-				<a href="#"><img src="http://www.fortress.com.hk/uploads/images/product/small/ASAMN9005BK01.jpg"></a>
-				<a href="#"><img src="http://www.fortress.com.hk/uploads/images/product/small/ASAMI9500BK01.jpg"></a>
-				<a href="#"><img src="http://www.fortress.com.hk/uploads/images/product/small/ASAMI9505BK01.jpg"></a>
-				<a href="#"><img src="http://www.fortress.com.hk/uploads/images/product/small/ASAMN9000BK01.jpg"></a>
-				<a href="#"><img src="http://www.fortress.com.hk/uploads/images/product/small/ASAMI9300BL01.JPG"></a>
-				<a href="#"><img src="http://www.fortress.com.hk/uploads/images/product/small/ASAMN7100GY01.JPG"></a>
-			</div>
+			<iframe src="hotpic.jsp" frameborder="0" scrolling="no" width="80%" height="600px" style="float: left;"></iframe>
 		</div>
+
 	</div>
 	<div class="bottom"></div>
 	<script type="text/javascript">
+		/** 顶部图片滚动 */
 		$(function() {
 			$('#dg-container').gallery();
 		});
