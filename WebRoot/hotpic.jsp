@@ -18,13 +18,13 @@
 		<style type="text/css">
 			body{ padding:0;font:12px "宋体";  }
 			#lib_zzjs_1{width:500px;margin:0px;padding:0px;margin-bottom:15px;}		/*选项卡1*/
-			#lib_zzjs_2{width:576px;margin:0px;padding:0px;margin-bottom:15px; }	/*选项卡2*/
+			#lib_zzjs_2{width:100%;margin:0px;padding:0px;margin-bottom:15px; }	/*选项卡2*/
 			.lib_border_zzjs{border:1px solid #95C9E1;}		/*菜单class*/
 			.lib_menu_zzjsnet {height:28px;line-height:28px;position:relative;}
 			.lib_menu_zzjsnet ul{margin:0px;padding:0px;list-style:none; position:absolute; top:3px; left:0; margin-left:10px; height:25px;text-align:center;}
 			.lib_menu_zzjsnet li{float:left;display:block;cursor:pointer;width:114px;color:#949694;font-weight:bold; margin-right:2px;height:25px;line-height:25px; background-color:#E4F2FD}
 			.lib_menu_zzjsnet li.hover{padding:0px;background:#fff;width:116px;border-left:1px solid #95C9E1;border-top:1px solid #95C9E1;border-right:1px solid #95C9E1;color:#739242;height:25px;line-height:25px;}
-			.lib_Contentbox_zzjs{clear:both;margin-top:0px; border-top:none;height:181px; text-align:center;padding-top:8px;}
+			.lib_Contentbox_zzjs{clear:both;margin-top:0px; border-top:none;height:200px; text-align:center;padding-top:8px;}
 		</style>
     </head>
     <body>
@@ -32,10 +32,9 @@
     <div id="lib_zzjs_2">
 <div class="lib_menu_zzjsnet lib_border_zzjs">
 <ul>
-   <li id="zzjs_21" onmouseover="settab_zzjsnet('zzjs_2',1,4)">站长特效一号</li>
-   <li id="zzjs_22" onmouseover="settab_zzjsnet('zzjs_2',2,4)"class="hover">站长特效二号</li>
+   <li id="zzjs_21" onmouseover="settab_zzjsnet('zzjs_2',1,4)" class="hover">站长特效一号</li>
+   <li id="zzjs_22" onmouseover="settab_zzjsnet('zzjs_2',2,4)">站长特效二号</li>
    <li id="zzjs_23" onmouseover="settab_zzjsnet('zzjs_2',3,4)">站长特效三号</li>
-   <li id="zzjs_24" onmouseover="settab_zzjsnet('zzjs_2',4,4)">站长特效四号</li>
 </ul>
 </div>
  <div class="lib_Contentbox_zzjs lib_border_zzjs">
@@ -43,7 +42,6 @@
 	<div class="tab">
 		<div class="container demo-1">
             <div class="main">
-				<!-- Elastislide Carousel -->
 				<ul id="carousel" class="elastislide-list">
 					<li><a href="#"><img src="images/small/1.jpg" alt="image01" /></a></li>
 					<li><a href="#"><img src="images/small/2.jpg" alt="image02" /></a></li>
@@ -55,7 +53,6 @@
 					<li><a href="#"><img src="images/small/8.jpg" alt="image08" /></a></li>
 					<li><a href="#"><img src="images/small/9.jpg" alt="image09" /></a></li>
 				</ul>
-				<!-- End Elastislide Carousel -->
 			</div>
 		</div>
 		</div>
@@ -63,7 +60,6 @@
    <div id="zzjs_zzjs_2_2" style="visibility: hidden">
    		<div class="container demo-1">
             <div class="main">
-				<!-- Elastislide Carousel -->
 				<ul id="carousel3" class="elastislide-list">
 					<li><a href="#"><img src="images/small/10.jpg" alt="image10" /></a></li>
 					<li><a href="#"><img src="images/small/11.jpg" alt="image11" /></a></li>
@@ -71,15 +67,12 @@
 					<li><a href="#"><img src="images/small/13.jpg" alt="image13" /></a></li>
 					<li><a href="#"><img src="images/small/14.jpg" alt="image14" /></a></li>
 				</ul>
-				<!-- End Elastislide Carousel -->
 			</div>
 		</div>
 	</div>
-   <div id="zzjs_zzjs_2_3" style="display:none">三号选项卡内容，鼠标经过切换，实用js选项卡。<br /><a href="http://www.zzjs.net" target="_blank">站长特效网</a>，以质量为核心，以实用为目的，打造一流网页特效站！</div>
-   <div id="zzjs_zzjs_2_4" style="visibility: hidden;">
+   <div id="zzjs_zzjs_2_3" style="visibility: hidden;">
    		<div class="container demo-1">
             <div class="main">
-				<!-- Elastislide Carousel -->
 				<ul id="carousel2" class="elastislide-list">
 					<li><a href="#"><img src="images/small/10.jpg" alt="image10" /></a></li>
 					<li><a href="#"><img src="images/small/11.jpg" alt="image11" /></a></li>
@@ -92,7 +85,6 @@
 					<li><a href="#"><img src="images/small/18.jpg" alt="image18" /></a></li>
 					<li><a href="#"><img src="images/small/19.jpg" alt="image19" /></a></li>
 				</ul>
-				<!-- End Elastislide Carousel -->
 			</div>
 		</div>
 	</div>

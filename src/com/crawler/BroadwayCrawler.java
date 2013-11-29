@@ -59,9 +59,9 @@ public class BroadwayCrawler extends Crawler{
 	
 
 	public static void main(String[] args) {
-//		BroadwayCrawler nb = new BroadwayCrawler();
-//		nb.startCollect();
-		new BroadwayCrawler().getHotProduct();
+		BroadwayCrawler nb = new BroadwayCrawler();
+		nb.startCollect();
+//		new BroadwayCrawler().getHotProduct();
 	}
 
 	public List<Object> getData(URL url) {
@@ -90,6 +90,7 @@ public class BroadwayCrawler extends Crawler{
 					// item-list:the paging div
 					continue;
 				} else {
+//					System.out.println(line);
 					Product broadway = new Product();
 					broadway.setRetailer(Retailer.BROADWAY.getName());
 					//Set specified product type, return "undefined" if not defined in ProductType
@@ -116,6 +117,11 @@ public class BroadwayCrawler extends Crawler{
 						}
 					} else {
 						if (line.contains("field-product-brand-value")) {
+							Pattern ip = Pattern.compile("(.*?)<img src=\"(.*?)\"(.*?)");
+							Matcher im = ip.matcher(line);
+							while (im.find()) {
+								broadway.setImage(im.group(2));
+							}
 							//link and the brand
 							Pattern dp = Pattern.compile("(.*?)field-product-brand-value\">(.*?)</div>(.*?)");
 							Matcher dm = dp.matcher(line);

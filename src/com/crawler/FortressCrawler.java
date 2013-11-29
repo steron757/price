@@ -66,9 +66,9 @@ public class FortressCrawler extends Crawler{
 
 
 	public static void main(String[] args) {
-//		FortressCrawler nb = new FortressCrawler();
-//		nb.startCollect();
-		new FortressCrawler().getHotProduct();
+		FortressCrawler nb = new FortressCrawler();
+		nb.startCollect();
+//		new FortressCrawler().getHotProduct();
 	}
 
 	public List<Product> getHotProduct(){
@@ -148,6 +148,7 @@ public class FortressCrawler extends Crawler{
 	}
 	
 	public List<Object> getData(URL url) {
+		String imageurl = "http://www.fortress.com.hk";
 		BufferedReader br = null;
 		HttpURLConnection conn;
 		List<Object> fortressList = new ArrayList<Object>();
@@ -183,13 +184,14 @@ public class FortressCrawler extends Crawler{
 					Product fortress = new Product();
 					fortress.setRetailer(Retailer.FORTRESS.getName());
 					fortress.setProductType(Subcategory.getSubcategories(urltype).getName());
-					Pattern ap = Pattern.compile("(.*?)PRODUCTFAMILY\":\"(.*?)\",\"BRAND_NAME\":\"(.*?)\"(.*?)\"MODEL\":\"(.*?)\"(.*?)\"PRICE\":\"(.*?)\"(.*?)");
+					Pattern ap = Pattern.compile("(.*?)PRODUCTFAMILY\":\"(.*?)\",\"BRAND_NAME\":\"(.*?)\"(.*?)\"MODEL\":\"(.*?)\"(.*?)\"PRICE\":\"(.*?)\"(.*?)\"PRODUCT_IMAGE\":\"(.*?)\"(.*?)");
 					Matcher am = ap.matcher(t);
 					while (am.find()) {
 						fortress.setLink(link + am.group(2));
 						fortress.setBrand(CodeUtils.unicodeToString(am.group(3)));
 						fortress.setModel(am.group(5));
 						fortress.setPrice(Float.parseFloat(am.group(7)));
+						fortress.setImage(imageurl + am.group(9));
 						fortressList.add(fortress);
 					}
 				}

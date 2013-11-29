@@ -2,6 +2,10 @@ package com.observer;
 
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.dao.ProductDao;
 import com.model.Product;
 
 /**
@@ -13,6 +17,9 @@ import com.model.Product;
  */
 public class ProductObserver implements Observable {
 
+	ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+	ProductDao pdao = (ProductDao) ctx.getBean("productDao");
+	
 	/**
 	 * ALL PRODUCT LIST
 	 */
@@ -25,6 +32,10 @@ public class ProductObserver implements Observable {
 			System.out.println(((Product) p).getBrand() + ((Product) p).getModel() + ((Product) p).getPrice());
 		}
 
+		for(Object o : productList){
+			Product p = (Product) o;
+			pdao.insertProduct(p);
+		}
 		System.out.println("****************************Status Changed****************************");
 	}
 
@@ -42,6 +53,10 @@ public class ProductObserver implements Observable {
 			System.out.println(p.getBrand() + p.getModel() + p.getPrice());
 		}
 
+		for(Object o : hotproductList){
+			Product p = (Product) o;
+			pdao.insertHotProduct(p);
+		}
 		System.out.println("****************************Hot Product Finished****************************");
 	}
 }

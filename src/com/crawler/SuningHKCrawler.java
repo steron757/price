@@ -218,14 +218,6 @@ public class SuningHKCrawler extends Crawler{
 							}
 						}
 					} else {
-						if(line.contains("<div class=\"thumbs\">")){	//Image
-							Pattern ap = Pattern.compile("<div class=\"thumbs\"><img src=\"(.*?)\"");
-							Matcher am = ap.matcher(line);
-							while (am.find()) {
-								String img = imageurl + am.group(1);
-								suningHK.setImage(img);
-							}
-						}
 						if(line.contains("class=\"sprint")){	//Link
 							Pattern ap = Pattern.compile("<a\\s.*?href=\"([^\"]+)\"[^>]*>(.*?)");
 							Matcher am = ap.matcher(line);
@@ -239,6 +231,14 @@ public class SuningHKCrawler extends Crawler{
 							}
 						}
 						while ((line = br.readLine()) != null) {
+							if(line.contains("<div class=\"thumbs\">")){	//Image
+								Pattern ap = Pattern.compile("<div class=\"thumbs\"><img src=\"(.*?)\"");
+								Matcher am = ap.matcher(line);
+								while (am.find()) {
+									String img = imageurl + am.group(1);
+									suningHK.setImage(img);
+								}
+							}
 							if (line.contains("class=\"caption\"")) { // Brand and model
 								line = br.readLine().trim().replace("<div>", "").replace("</div>", "");
 								suningHK.setBrand(line);
