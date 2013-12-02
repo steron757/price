@@ -54,12 +54,14 @@ body{
 	font-size: 15px;
 	overflow-y: scroll;
 }
+
+/**左侧菜单*/
 a{
-	color: #ddd;
+	color: #000;
 	text-decoration: none;
 }
 a:hover{
-	color: #fff;
+	color: #000;
 }
 .container{
 	width: 100%;

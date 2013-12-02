@@ -95,7 +95,7 @@
 								if(p == ProductType.NULL)
 									break;
 						%>
-						<li class=""><a href="#"><%=p.getDescription() %></a></li>
+						<li class=""><a href="list.action?type1=<%=p.getName() %>"><%=p.getDescription() %></a></li>
 						<% } %>
 					</ul>
 					<!--一级菜单列表-->
@@ -107,7 +107,7 @@
 								<% List<Subcategory> slist = ProductType.getSubcategories(p);
 									for(Subcategory s : slist){ 
 										if(s == Subcategory.NULL)break;%>
-									<li><%=s.getDescription() %></li>
+									<li><a href="list.action?type2=<%=s.getName() %>"><%=s.getDescription() %></a></li>
 								<% } %>
 							</ul>
 						</div>

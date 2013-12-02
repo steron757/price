@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" /> <!--development mode set -->
+	<constant name="struts.action.extension" value="action,,do" /> <!--development mode set -->
+	<!--struts标签去除样式 -->
+	<constant name="struts.ui.theme" value="simple" />
+	<!--用spring管理struts2的action -->
+	<constant name="struts.objectFactory" value="spring" />
+
+	<package name="ssh" extends="struts-default">
+		<action name="base" class="com.action.BaseAction" />
+	</package>
+	
+	<package name="default" namespace="/" extends="ssh">
+		<default-action-ref name="" />
+		<action name="list" class="com.action.ProductAction">
+			<result name="success">productlist.jsp</result>
+		</action>
+	</package>
+</struts>    
