@@ -16,7 +16,7 @@
 		<result property="image" column="image" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<select id="selectProduct" resultMap="ProductMap">
+	<select id="selectAllProduct" resultMap="ProductMap">
 		select id,producttype,brand,model,price,link,description,retailer,create_date,image from product
 	</select>
 	
@@ -35,4 +35,17 @@
 		(#productType:VARCHAR#,#brand:VARCHAR#,#model:VARCHAR#,#price:VARCHAR#,#link:FLOAT#,
 		#description:VARCHAR#,#retailer:VARCHAR#,NOW(),#image:VARCHAR#)
 	</insert>
+	
+	<select id="selectProductByType" resultMap="ProductMap" parameterClass="java.util.ArrayList">
+		select id,producttype,brand,model,price,link,description,retailer,create_date,image from product
+		where producttype in
+		<iterate conjunction="," open="(" close=")">  
+            #value[]#  
+        </iterate>  
+	</select>
+	
+	<select id="selectProductBySubtype" resultMap="ProductMap" parameterClass="java.lang.String">
+		select id,producttype,brand,model,price,link,description,retailer,create_date,image from product
+		where producttype = #value#
+	</select>
 </sqlMap>

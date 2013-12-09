@@ -2,23 +2,25 @@ package com.action;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.struts2.interceptor.ApplicationAware;
-import org.apache.struts2.interceptor.RequestAware;
+import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-public class BaseAction extends ActionSupport implements RequestAware,
+public class BaseAction extends ActionSupport implements ServletRequestAware,
 SessionAware, ApplicationAware{
 
 	private static final long serialVersionUID = 1L;
 
-	public Map<String, Object> request;
+	public HttpServletRequest request;
 	public Map<String, Object> session;
 	public Map<String, Object> application;
 	
 
-	public void setRequest(Map<String, Object> arg0) {
+	public void setServletRequest(HttpServletRequest arg0) {
 		this.request = arg0;
 	}
 
@@ -29,5 +31,4 @@ SessionAware, ApplicationAware{
 	public void setApplication(Map<String, Object> arg0) {
 		this.application = arg0;
 	}
-
 }
