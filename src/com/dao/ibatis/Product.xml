@@ -40,12 +40,23 @@
 		select id,producttype,brand,model,price,link,description,retailer,create_date,image from product
 		where producttype in
 		<iterate conjunction="," open="(" close=")">  
-            #value[]#  
-        </iterate>  
+            #value[]#
+        </iterate>
 	</select>
 	
 	<select id="selectProductBySubtype" resultMap="ProductMap" parameterClass="java.lang.String">
 		select id,producttype,brand,model,price,link,description,retailer,create_date,image from product
 		where producttype = #value#
+	</select>
+	
+	<select id="selectProductByTypeCount" resultClass="java.lang.Integer" parameterClass="java.util.ArrayList">
+		select count(*) from product where producttype in
+		<iterate conjunction="," open="(" close=")">  
+            #value[]#
+        </iterate>
+	</select>
+	
+	<select id="selectProductBySubtypeCount" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		select count(*) from product where producttype = #value#
 	</select>
 </sqlMap>

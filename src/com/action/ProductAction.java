@@ -7,6 +7,7 @@ import com.dao.ProductDao;
 import com.model.Product;
 import com.model.enums.ProductType;
 import com.model.enums.Subcategory;
+import com.util.Constant;
 import com.util.StringUtil;
 
 public class ProductAction extends BaseAction {
@@ -16,11 +17,17 @@ public class ProductAction extends BaseAction {
 	private String type1;
 	private String type2;
 
+	/** which page want to go */
+	private String page;
+	
 	private ProductDao productDao;
 	
 	@Override
 	public String execute() throws Exception {
 		List<Subcategory> classlist = new ArrayList<Subcategory>();
+		request.setAttribute("currentPage", page);
+		request.setAttribute("type1", type1);
+		request.setAttribute("type2", type2);
 		if(StringUtil.isNotEmpty(type1)){			//Choose parent node
 			ProductType p = ProductType.getProductType(type1);
 			classlist = ProductType.getSubcategories(p);
@@ -47,14 +54,30 @@ public class ProductAction extends BaseAction {
 
 	private String getProduct1(String parentClass) {
 		List<Subcategory> subList = ProductType.getSubcategories(ProductType.getProductType(parentClass));
-		List<Product> pList = productDao.selectProductByType(subList);
+		int recordBegin = 0;
+		if(StringUtil.isNotEmpty(page)){
+			recordBegin = (Integer.parseInt(page) - 1) * Constant.recordsPerPage;
+		}
+		int count = productDao.selectProductByTypeCount(subList);
+		List<Product> pList = productDao.selectProductByType(subList, recordBegin);
 		request.setAttribute("pList", pList);
+		request.setAttribute("pListCount", count);
+		request.setAttribute("pageCount", count % Constant.recordsPerPage == 0 ? 
+				(count / Constant.recordsPerPage):(count / Constant.recordsPerPage + 1));
 		return SUCCESS;
 	}
 
 	private String getProduct2(String subClass) {
-		List<Product> pList = productDao.selectProductBySubtype(subClass);
+		int recordBegin = 0;
+		if(StringUtil.isNotEmpty(page)){
+			recordBegin = (Integer.parseInt(page) - 1) * Constant.recordsPerPage;
+		}
+		List<Product> pList = productDao.selectProductBySubtype(subClass, recordBegin);
+		int count = productDao.selectProductBySubtypeCount(subClass);
 		request.setAttribute("pList", pList);
+		request.setAttribute("pListCount", count);
+		request.setAttribute("pageCount", count % Constant.recordsPerPage == 0 ? 
+				(count / Constant.recordsPerPage) : (count / Constant.recordsPerPage + 1));
 		return SUCCESS;
 	}
 
@@ -80,5 +103,13 @@ public class ProductAction extends BaseAction {
 
 	public void setProductDao(ProductDao productDao) {
 		this.productDao = productDao;
+	}
+
+	public String getPage() {
+		return page;
+	}
+
+	public void setPage(String page) {
+		this.page = page;
 	}
 }

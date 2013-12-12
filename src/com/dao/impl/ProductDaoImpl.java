@@ -6,6 +6,7 @@ import com.dao.BaseDao;
 import com.dao.ProductDao;
 import com.model.Product;
 import com.model.enums.Subcategory;
+import com.util.Constant;
 
 /**
  * Product Dao
@@ -47,13 +48,24 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 		return obj != null;
 	}
 
-	public List<Product> selectProductByType(List<Subcategory> pClass) {
-		return this.getSqlMapClientTemplate().queryForList("selectProductByType", pClass);
+	public List<Product> selectProductByType(List<Subcategory> pClass, int start) {
+		return this.getSqlMapClientTemplate().queryForList("selectProductByType", 
+				pClass, start, Constant.recordsPerPage);
 	}
 
-	public List<Product> selectProductBySubtype(String subClass) {
-		return this.getSqlMapClientTemplate().queryForList("selectProductBySubtype", subClass);
+	public List<Product> selectProductBySubtype(String subClass, int start) {
+		return this.getSqlMapClientTemplate().queryForList("selectProductBySubtype", 
+				subClass, start, Constant.recordsPerPage);
 	}
-	
-	
+
+	public Integer selectProductByTypeCount(List<Subcategory> subList) {
+		return (Integer) this.getSqlMapClientTemplate().queryForObject("selectProductByTypeCount", subList);
+	}
+
+	public Integer selectProductBySubtypeCount(String subClass) {
+		return (Integer) this.getSqlMapClientTemplate().queryForObject("selectProductBySubtypeCount", subClass);
+	}
+
+
+
 }

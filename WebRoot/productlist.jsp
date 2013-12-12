@@ -18,7 +18,16 @@
 
 <script src="<%=basePath%>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="<%=basePath%>/js/leftmenu.js"></script>
+<style type="text/css">
 
+</style>
+<%
+	System.out.println(request.getAttribute("pageCount"));
+	String currentPage = String.valueOf(request.getAttribute("currentPage") == null ? "1" : request.getAttribute("currentPage"));
+	String type1 = String.valueOf(request.getAttribute("type1") == null ? "" : request.getAttribute("type1"));
+	String type2 = String.valueOf(request.getAttribute("type2") == null ? "" : request.getAttribute("type2"));
+	String pageCount = String.valueOf(request.getAttribute("pageCount") == null ? "0" : request.getAttribute("pageCount"));
+%>
 </head>
 <body>
 	<div class="head" style="width: 100%">
@@ -54,19 +63,48 @@
 			</s:else>
 		</s:iterator>
 	</div>
-	<div class="product_list">
-		<s:iterator value="#request.pList" var="pro">
-		<div class="product_img">
-			<img alt="" src="<s:property value="#pro.image"/>" onclick="opendetail('')">
-			<div style="margin-top: 10px">
-<%--			<a href="#">--%>
-				<s:property value="#pro.brand"/>&nbsp;<s:property value="#pro.model"/>
-<%--			</a>--%>
-			</div>
+	<s:if test="#request.pList.size > 0">
+		<div class="product_list">
+			<div class="">找到商品共<s:property value="#request.pListCount"/>条</div>
+			<s:iterator value="#request.pList" var="pro">
+				<div class="product_img">
+					<img alt="" src="<s:property value="#pro.image"/>" onclick="opendetail('')">
+					<div style="margin-top: 10px;width: 150px;text-align: center;">
+						<s:property value="#pro.brand"/>&nbsp;<s:property value="#pro.model"/>
+					</div>
+				</div>
+			</s:iterator>
 		</div>
-		</s:iterator>
-	</div>
-	
+		<div class="scott">
+			<font color="4599e3">当前第&nbsp;<%=currentPage %>&nbsp;页,共<%=pageCount %>页</font>&nbsp;&nbsp;&nbsp;
+			<a href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=1"> << </a>
+			<a href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=Integer.parseInt(currentPage)>1?Integer.parseInt(currentPage)-1:1 %>"> < </a>
+	<%  int i = 1;
+		int j = 1;
+		if(Integer.parseInt(currentPage) >= 6){
+			i = Integer.parseInt(currentPage) - 4;
+		}
+		for(; i<=Integer.parseInt(pageCount);i++){
+			j++;
+			if(i == Integer.parseInt(currentPage)){
+	 %> <a id="p<%=i%>" href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=i%>" class="current"><%=i %></a>
+	 	<% }else{ %>
+		<a id="p<%=i%>" href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=i%>"><%=i %></a>
+		<% }
+	 	if(j>6 && Integer.parseInt(pageCount) >=i+2){ %>
+	 	...
+	 	<a id="p<%=Integer.parseInt(pageCount)%>" href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=i%>"><%=Integer.parseInt(pageCount) %></a>
+	 <% break;
+	 	}
+	 } 
+	 %>
+			<a href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=Integer.parseInt(currentPage)<Integer.parseInt(pageCount)?Integer.parseInt(currentPage)+1:pageCount %>"> > </a>
+			<a href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=pageCount %>"> >> </a>
+		</div>
+	</s:if>
+	<s:else>
+		<div class="product_list">没有找到记录</div>
+	</s:else>
 <script type="text/javascript">
 	function opendetail(id) {
 		
