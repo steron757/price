@@ -66,6 +66,10 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 		return (Integer) this.getSqlMapClientTemplate().queryForObject("selectProductBySubtypeCount", subClass);
 	}
 
+	public List<Product> selectAllProductBySubtype(String subClass) {
+		return this.getSqlMapClientTemplate().queryForList("selectAllProductBySubtype", subClass);
+	}
+
 
 
 }

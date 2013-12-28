@@ -17,5 +17,8 @@
 		<action name="list" class="com.action.ProductAction">
 			<result name="success">productlist.jsp</result>
 		</action>
+		<action name="findSelected" class="com.action.SelectedAction">
+			<result name="success">selectedproduct.jsp</result>
+		</action>
 	</package>
 </struts>    

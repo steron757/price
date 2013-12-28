@@ -8,6 +8,7 @@ import org.apache.struts2.interceptor.ApplicationAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.dao.ProductDao;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class BaseAction extends ActionSupport implements ServletRequestAware,
@@ -18,7 +19,8 @@ SessionAware, ApplicationAware{
 	public HttpServletRequest request;
 	public Map<String, Object> session;
 	public Map<String, Object> application;
-	
+
+	private ProductDao productDao;
 
 	public void setServletRequest(HttpServletRequest arg0) {
 		this.request = arg0;
@@ -30,5 +32,13 @@ SessionAware, ApplicationAware{
 
 	public void setApplication(Map<String, Object> arg0) {
 		this.application = arg0;
+	}
+
+	public ProductDao getProductDao() {
+		return productDao;
+	}
+
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
 	}
 }

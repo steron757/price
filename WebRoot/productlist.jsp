@@ -22,7 +22,6 @@
 
 </style>
 <%
-	System.out.println(request.getAttribute("pageCount"));
 	String currentPage = String.valueOf(request.getAttribute("currentPage") == null ? "1" : request.getAttribute("currentPage"));
 	String type1 = String.valueOf(request.getAttribute("type1") == null ? "" : request.getAttribute("type1"));
 	String type2 = String.valueOf(request.getAttribute("type2") == null ? "" : request.getAttribute("type2"));
@@ -68,10 +67,13 @@
 			<div class="">找到商品共<s:property value="#request.pListCount"/>条</div>
 			<s:iterator value="#request.pList" var="pro">
 				<div class="product_img">
-					<img alt="" src="<s:property value="#pro.image"/>" onclick="opendetail('')">
+					<a href="javascript:void(0)" onclick="opendetail('<s:property value="#pro.model"/>','<s:property value="#pro.productType"/>','<s:property value="#pro.brand"/>')">
+					<img alt="" src="<s:property value="#pro.image"/>"/></a>
 					<div style="margin-top: 10px;width: 150px;text-align: center;">
 						<s:property value="#pro.brand"/>&nbsp;<s:property value="#pro.model"/>
 					</div>
+					<div style="text-align: center;color: red"><s:property value="#pro.retailer"/>&nbsp;&nbsp;&nbsp;&nbsp;
+						<s:property value="#pro.price"/></div>
 				</div>
 			</s:iterator>
 		</div>
@@ -93,7 +95,7 @@
 		<% }
 	 	if(j>6 && Integer.parseInt(pageCount) >=i+2){ %>
 	 	...
-	 	<a id="p<%=Integer.parseInt(pageCount)%>" href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=i%>"><%=Integer.parseInt(pageCount) %></a>
+	 	<a id="p<%=Integer.parseInt(pageCount)%>" href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=pageCount%>"><%=Integer.parseInt(pageCount) %></a>
 	 <% break;
 	 	}
 	 } 
@@ -106,9 +108,9 @@
 		<div class="product_list">没有找到记录</div>
 	</s:else>
 <script type="text/javascript">
-	function opendetail(id) {
-		
-	}
+	function opendetail(model, type, brand) {
+		window.location.href = 'findSelected!find.action?'+'model=' + encodeURIComponent(model) + '&type=' + type + '&brand=' + encodeURIComponent(brand);
+	};
 </script>
 </body>
 </html>
