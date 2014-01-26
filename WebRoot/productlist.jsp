@@ -29,24 +29,19 @@
 %>
 </head>
 <body>
-	<div class="head" style="width: 100%">
-		<div class="headmenu">
-			<img alt="logo" src="image/logo.png">
-		</div>
-		<div class="headcontent_" style="background-image: url('image/headbg.png');float: left;width: 1%;"></div>
-		<div class="headcontent" style="background-image: url('image/headbg2.png');width: 98%;background-repeat: repeat-x;float: left;">
-			<div class="menu_nav">
-				<ul class="nav_content">
-					<li class="current"><a href="#"><span>首頁</span></a></li>
-					<li><a href="#"><span>百老匯</span></a></li>
-					<li><a href="#"><span>蘇寧香港</span></a></li>
-					<li><a href="#"><span>豐澤</span></a></li>
-				</ul>
-				<div class="menu_nav_right"></div>
-			</div>
-		</div>
-		<div class="headcontent_" style="background-image: url('image/headbg3.png');float: right;width: 1%"></div>
-	</div>
+	<% 
+		String r = request.getParameter("r");  
+		if(r == null) r = "0"; 
+		String tt = request.getParameter("t");  
+		if(tt != null) r = tt; 
+	%>
+	<%@include file="head.jsp"%>
+	<script>
+		for(var i=0;i<=3;i++){
+			document.getElementById('r'+i).className='';
+		}
+		document.getElementById('r'+'<%=r%>').className='current';
+	</script>
 	<%@include file="leftmenu.jsp"%>
 	<div class="product_class_title_list">
 		<s:property value="#request.type"/>
@@ -77,10 +72,11 @@
 				</div>
 			</s:iterator>
 		</div>
+		<% String re = request.getAttribute("r") == null ? "" : (String) request.getAttribute("r"); %><!-- Retailer -->
 		<div class="scott">
 			<font color="4599e3">当前第&nbsp;<%=currentPage %>&nbsp;页,共<%=pageCount %>页</font>&nbsp;&nbsp;&nbsp;
-			<a href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=1"> << </a>
-			<a href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=Integer.parseInt(currentPage)>1?Integer.parseInt(currentPage)-1:1 %>"> < </a>
+			<a href="list.action?r=<%=re %>&type1=<%=type1 %>&type2=<%=type2 %>&page=1"> << </a>
+			<a href="list.action?r=<%=re %>&type1=<%=type1 %>&type2=<%=type2 %>&page=<%=Integer.parseInt(currentPage)>1?Integer.parseInt(currentPage)-1:1 %>"> < </a>
 	<%  int i = 1;
 		int j = 1;
 		if(Integer.parseInt(currentPage) >= 6){
@@ -89,19 +85,19 @@
 		for(; i<=Integer.parseInt(pageCount);i++){
 			j++;
 			if(i == Integer.parseInt(currentPage)){
-	 %> <a id="p<%=i%>" href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=i%>" class="current"><%=i %></a>
+	 %> <a id="p<%=i%>" href="list.action?r=<%=re %>&type1=<%=type1 %>&type2=<%=type2 %>&page=<%=i%>" class="current"><%=i %></a>
 	 	<% }else{ %>
-		<a id="p<%=i%>" href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=i%>"><%=i %></a>
+		<a id="p<%=i%>" href="list.action?r=<%=re %>&type1=<%=type1 %>&type2=<%=type2 %>&page=<%=i%>"><%=i %></a>
 		<% }
 	 	if(j>6 && Integer.parseInt(pageCount) >=i+2){ %>
 	 	...
-	 	<a id="p<%=Integer.parseInt(pageCount)%>" href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=pageCount%>"><%=Integer.parseInt(pageCount) %></a>
+	 	<a id="p<%=Integer.parseInt(pageCount)%>" href="list.action?r=<%=r %>&type1=<%=type1 %>&type2=<%=type2 %>&page=<%=pageCount%>"><%=Integer.parseInt(pageCount) %></a>
 	 <% break;
 	 	}
 	 } 
 	 %>
-			<a href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=Integer.parseInt(currentPage)<Integer.parseInt(pageCount)?Integer.parseInt(currentPage)+1:pageCount %>"> > </a>
-			<a href="list.action?type1=<%=type1 %>&type2=<%=type2 %>&page=<%=pageCount %>"> >> </a>
+			<a href="list.action?r=<%=re %>&type1=<%=type1 %>&type2=<%=type2 %>&page=<%=Integer.parseInt(currentPage)<Integer.parseInt(pageCount)?Integer.parseInt(currentPage)+1:pageCount %>"> > </a>
+			<a href="list.action?r=<%=re %>&type1=<%=type1 %>&type2=<%=type2 %>&page=<%=pageCount %>"> >> </a>
 		</div>
 	</s:if>
 	<s:else>

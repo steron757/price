@@ -1,7 +1,10 @@
 <%@page import="com.model.enums.Subcategory"%>
 <%@page import="com.model.enums.ProductType"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-
+<%
+	String t = request.getParameter("r");	//Get retailer
+	if(t == null) t="";
+%>
 		<div class="leftmenu">
 			<div class="mod-menu f-l">
 				<div id="column-left">
@@ -10,7 +13,7 @@
 								if(p == ProductType.NULL)
 									break;
 						%>
-						<li class=""><a href="list.action?type1=<%=p.getName() %>"><%=p.getDescription() %></a></li>
+						<li class=""><a href="list.action?type1=<%=p.getName() %>&t=<%=t%>"><%=p.getDescription() %></a></li>
 						<% } %>
 					</ul>
 					<!--一级菜单列表-->
@@ -22,7 +25,7 @@
 								<% List<Subcategory> slist = ProductType.getSubcategories(p);
 									for(Subcategory s : slist){ 
 										if(s == Subcategory.NULL)break;%>
-									<li><a href="list.action?type2=<%=s.getName() %>"><%=s.getDescription() %></a></li>
+									<li><a href="list.action?type2=<%=s.getName() %>&t=<%=t%>"><%=s.getDescription() %></a></li>
 								<% } %>
 							</ul>
 						</div>

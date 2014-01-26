@@ -6,6 +6,7 @@ import java.util.List;
 import com.dao.ProductDao;
 import com.model.Product;
 import com.model.enums.ProductType;
+import com.model.enums.Retailer;
 import com.model.enums.Subcategory;
 import com.util.Constant;
 import com.util.StringUtil;
@@ -24,6 +25,11 @@ public class ProductAction extends BaseAction {
 	
 	@Override
 	public String execute() throws Exception {
+		String r = request.getParameter("r");	//retailer
+		String t = request.getParameter("t");	//the case when query both retailer and classes
+		if(StringUtil.isNotEmpty(r)){
+			return ret();
+		}
 		List<Subcategory> classlist = new ArrayList<Subcategory>();
 		request.setAttribute("currentPage", page);
 		request.setAttribute("type1", type1);
@@ -36,7 +42,7 @@ public class ProductAction extends BaseAction {
 				if(s == Subcategory.NULL)break;
 				request.setAttribute("classlist", classlist);
 			}
-			return getProduct1(type1);
+			return getProduct1(type1, t);
 		} else if(StringUtil.isNotEmpty(type2)){		//Choose child node
 			Subcategory p = Subcategory.getSubcategories(type2);
 			classlist = ProductType.getSubcategories(p.getParent());
@@ -47,19 +53,32 @@ public class ProductAction extends BaseAction {
 				if(s == Subcategory.NULL)break;
 				request.setAttribute("classlist", classlist);	//Child classes list
 			}
-			return getProduct2(type2);
+			return getProduct2(type2, t);
 		}
 		return super.execute();
 	}
 
-	private String getProduct1(String parentClass) {
+	/**
+	 * Parent menu
+	 * @param parentClass
+	 * @param retailer
+	 * @return
+	 */
+	private String getProduct1(String parentClass, String retailer) {
 		List<Subcategory> subList = ProductType.getSubcategories(ProductType.getProductType(parentClass));
 		int recordBegin = 0;
 		if(StringUtil.isNotEmpty(page)){
 			recordBegin = (Integer.parseInt(page) - 1) * Constant.recordsPerPage;
 		}
-		int count = productDao.selectProductByTypeCount(subList);
-		List<Product> pList = productDao.selectProductByType(subList, recordBegin);
+		int count = 0;
+		List<Product> pList = null;
+		if(StringUtil.isNotEmpty(retailer)) {
+			count = productDao.selectRetailerProductByTypeCount(subList, retailer);
+			pList = productDao.selectRetailerProductByType(subList, retailer, recordBegin);
+		} else {
+			count = productDao.selectProductByTypeCount(subList);
+			pList = productDao.selectProductByType(subList, recordBegin);
+		}
 		request.setAttribute("pList", pList);
 		request.setAttribute("pListCount", count);
 		request.setAttribute("pageCount", count % Constant.recordsPerPage == 0 ? 
@@ -67,13 +86,26 @@ public class ProductAction extends BaseAction {
 		return SUCCESS;
 	}
 
-	private String getProduct2(String subClass) {
+	/**
+	 * Sub menu
+	 * @param subClass
+	 * @param retailer
+	 * @return
+	 */
+	private String getProduct2(String subClass, String retailer) {
 		int recordBegin = 0;
 		if(StringUtil.isNotEmpty(page)){
 			recordBegin = (Integer.parseInt(page) - 1) * Constant.recordsPerPage;
 		}
-		List<Product> pList = productDao.selectProductBySubtype(subClass, recordBegin);
-		int count = productDao.selectProductBySubtypeCount(subClass);
+		int count = 0;
+		List<Product> pList = null;
+		if(StringUtil.isNotEmpty(retailer)) {
+			pList = productDao.selectRetailerProductBySubtype(subClass, retailer, recordBegin);
+			count = productDao.selectRetailerProductBySubtypeCount(subClass, retailer);
+		} else {
+			pList = productDao.selectProductBySubtype(subClass, recordBegin);
+			count = productDao.selectProductBySubtypeCount(subClass);
+		}
 		request.setAttribute("pList", pList);
 		request.setAttribute("pListCount", count);
 		request.setAttribute("pageCount", count % Constant.recordsPerPage == 0 ? 
@@ -81,6 +113,37 @@ public class ProductAction extends BaseAction {
 		return SUCCESS;
 	}
 
+	/**
+	 * Get products by retailers
+	 * @return
+	 */
+	public String ret(){
+		String r = request.getParameter("r");
+		String re = "";
+		if("1".equals(r)){
+			re = Retailer.BROADWAY.toString();
+		}
+		if("2".equals(r)){
+			re = Retailer.SUNINGHK.toString();
+		}
+		if("3".equals(r)){
+			re = Retailer.FORTRESS.toString();
+		}
+		int recordBegin = 0;
+		if(StringUtil.isNotEmpty(page)){
+			recordBegin = (Integer.parseInt(page) - 1) * Constant.recordsPerPage;
+		}
+		List<Product> pList = productDao.selectProductByRetailer(re, recordBegin);
+		int count = productDao.selectProductByRetailerCount(re);
+		request.setAttribute("r", r);
+		request.setAttribute("currentPage", page);
+		request.setAttribute("pList", pList);
+		request.setAttribute("pListCount", count );
+		request.setAttribute("pageCount", count % Constant.recordsPerPage == 0 ? 
+				(count / Constant.recordsPerPage) : (count / Constant.recordsPerPage + 1));
+		return SUCCESS;
+	}
+	
 	public String getType2() {
 		return type2;
 	}

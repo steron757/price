@@ -30,24 +30,7 @@
 %>
 </head>
 <body>
-	<div class="head" style="width: 100%">
-		<div class="headmenu">
-			<img alt="logo" src="image/logo.png">
-		</div>
-		<div class="headcontent_" style="background-image: url('image/headbg.png');float: left;width: 1%;"></div>
-		<div class="headcontent" style="background-image: url('image/headbg2.png');width: 98%;background-repeat: repeat-x;float: left;">
-			<div class="menu_nav">
-				<ul class="nav_content">
-					<li class="current"><a href="#"><span>首頁</span></a></li>
-					<li><a href="#"><span>百老匯</span></a></li>
-					<li><a href="#"><span>蘇寧香港</span></a></li>
-					<li><a href="#"><span>豐澤</span></a></li>
-				</ul>
-				<div class="menu_nav_right"></div>
-			</div>
-		</div>
-		<div class="headcontent_" style="background-image: url('image/headbg3.png');float: right;width: 1%"></div>
-	</div>
+	<%@include file="head.jsp"%>
 	<%@include file="leftmenu.jsp"%>
 	<div class="product_class_title_list">
 		<a href="javascript:history.go(-1);" >返回</a>

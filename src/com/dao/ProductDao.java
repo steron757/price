@@ -38,4 +38,18 @@ public interface ProductDao {
 	public abstract Integer selectProductBySubtypeCount(String subClass);
 	
 	public abstract List<Product> selectAllProductBySubtype(String subClass);
+
+	public abstract List<Product> selectProductByRetailer(String retailer, int start);
+	
+	public abstract Integer selectProductByRetailerCount(String retailer);
+
+	public abstract int selectRetailerProductByTypeCount(List<Subcategory> subList, String retailer);
+
+	public abstract List<Product> selectRetailerProductByType(List<Subcategory> subList, String retailer, int recordBegin);
+
+	public abstract List<Product> selectRetailerProductBySubtype(
+			String subClass, String retailer, int recordBegin);
+
+	public abstract int selectRetailerProductBySubtypeCount(String subClass,
+			String retailer);
 }

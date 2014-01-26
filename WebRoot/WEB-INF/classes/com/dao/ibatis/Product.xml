@@ -65,4 +65,59 @@
 		select id,producttype,brand,model,price,link,description,retailer,create_date,image from product
 		where producttype = #value#
 	</select>
+	
+	<select id="selectProductByRetailer" resultMap="ProductMap" parameterClass="java.lang.String">
+		select id,producttype,brand,model,price,link,description,retailer,create_date,image from product
+		where retailer = #value#
+	</select>
+	
+	<select id="selectProductByRetailerCount" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		select count(*) from product where retailer = #value#
+	</select>
+	
+	<!-- Select products by retailer and class -->
+	<select id="selectBroadwayProductByTypeCount" resultClass="java.lang.Integer" parameterClass="java.util.ArrayList">
+		select count(*) from product where retailer='Broadway' and producttype in
+		<iterate conjunction="," open="(" close=")">  
+            #value[]#
+        </iterate>
+	</select>
+	
+	<select id="selectSuningProductByTypeCount" resultClass="java.lang.Integer" parameterClass="java.util.ArrayList">
+		select count(*) from product where retailer='SuningHK' and producttype in
+		<iterate conjunction="," open="(" close=")">  
+            #value[]#
+        </iterate>
+	</select>
+	
+	<select id="selectFortressProductByTypeCount" resultClass="java.lang.Integer" parameterClass="java.util.ArrayList">
+		select count(*) from product where retailer='Fortress' and producttype in
+		<iterate conjunction="," open="(" close=")">  
+            #value[]#
+        </iterate>
+	</select>
+	
+	<select id="selectBroadwayProductByType" resultMap="ProductMap" parameterClass="java.util.ArrayList">
+		select id,producttype,brand,model,price,link,description,retailer,create_date,image from product
+		where retailer='Broadway' and producttype in
+		<iterate conjunction="," open="(" close=")">  
+            #value[]#
+        </iterate>
+	</select>
+	
+	<select id="selectSuningProductByType" resultMap="ProductMap" parameterClass="java.util.ArrayList">
+		select id,producttype,brand,model,price,link,description,retailer,create_date,image from product
+		where retailer='SuningHK' and producttype in
+		<iterate conjunction="," open="(" close=")">  
+            #value[]#
+        </iterate>
+	</select>
+	
+	<select id="selectFortressProductByType" resultMap="ProductMap" parameterClass="java.util.ArrayList">
+		select id,producttype,brand,model,price,link,description,retailer,create_date,image from product
+		where retailer='Fortress' and producttype in
+		<iterate conjunction="," open="(" close=")">  
+            #value[]#
+        </iterate>
+	</select>
 </sqlMap>

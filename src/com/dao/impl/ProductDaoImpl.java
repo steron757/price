@@ -1,5 +1,6 @@
 package com.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.dao.BaseDao;
@@ -70,6 +71,58 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 		return this.getSqlMapClientTemplate().queryForList("selectAllProductBySubtype", subClass);
 	}
 
+	public List<Product> selectProductByRetailer(String retailer, int start) {
+		return this.getSqlMapClientTemplate().queryForList("selectProductByRetailer", retailer,
+				start, Constant.recordsPerPage);
+	}
+	
+	public Integer selectProductByRetailerCount(String retailer) {
+		return (Integer) this.getSqlMapClientTemplate().queryForObject("selectProductByRetailerCount", retailer);
+	}
+
+	public int selectRetailerProductByTypeCount(List<Subcategory> subList, String retailer) {
+		if("1".equals(retailer))
+			return (Integer) this.getSqlMapClientTemplate().queryForObject("selectBroadwayProductByTypeCount", subList);
+		if("2".equals(retailer))
+			return (Integer) this.getSqlMapClientTemplate().queryForObject("selectSuningProductByTypeCount", subList);
+		if("3".equals(retailer))
+			return (Integer) this.getSqlMapClientTemplate().queryForObject("selectFortressProductByTypeCount", subList);
+		return 0;
+	}
+
+	public List<Product> selectRetailerProductByType(List<Subcategory> subList, String retailer, int start) {
+		if("1".equals(retailer))
+			return this.getSqlMapClientTemplate().queryForList("selectBroadwayProductByType", subList, start, Constant.recordsPerPage);
+		if("2".equals(retailer))
+			return this.getSqlMapClientTemplate().queryForList("selectSuningProductByType", subList, start, Constant.recordsPerPage);
+		if("3".equals(retailer))
+			return this.getSqlMapClientTemplate().queryForList("selectFortressProductByType", subList, start, Constant.recordsPerPage);
+		return new ArrayList<Product>();
+	}
+
+	public int selectRetailerProductBySubtypeCount(String subClass, String retailer) {
+		List<Subcategory> subList = new ArrayList<Subcategory>();
+		subList.add(Subcategory.getSubcategories(subClass));
+		if("1".equals(retailer))
+			return (Integer) this.getSqlMapClientTemplate().queryForObject("selectBroadwayProductByTypeCount", subList);
+		if("2".equals(retailer))
+			return (Integer) this.getSqlMapClientTemplate().queryForObject("selectSuningProductByTypeCount", subList);
+		if("3".equals(retailer))
+			return (Integer) this.getSqlMapClientTemplate().queryForObject("selectFortressProductByTypeCount", subList);
+		return 0;
+	}
+
+	public List<Product> selectRetailerProductBySubtype(String subClass, String retailer, int start) {
+		List<Subcategory> subList = new ArrayList<Subcategory>();
+		subList.add(Subcategory.getSubcategories(subClass));
+		if("1".equals(retailer))
+			return this.getSqlMapClientTemplate().queryForList("selectBroadwayProductByType", subList, start, Constant.recordsPerPage);
+		if("2".equals(retailer))
+			return this.getSqlMapClientTemplate().queryForList("selectSuningProductByType", subList, start, Constant.recordsPerPage);
+		if("3".equals(retailer))
+			return this.getSqlMapClientTemplate().queryForList("selectFortressProductByType", subList, start, Constant.recordsPerPage);
+		return new ArrayList<Product>();
+	}
 
 
 }
