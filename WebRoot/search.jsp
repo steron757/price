@@ -23,8 +23,7 @@
 </style>
 <%
 	String currentPage = String.valueOf(request.getAttribute("currentPage") == null ? "1" : request.getAttribute("currentPage"));
-	String type1 = String.valueOf(request.getAttribute("type1") == null ? "" : request.getAttribute("type1"));
-	String type2 = String.valueOf(request.getAttribute("type2") == null ? "" : request.getAttribute("type2"));
+	String name = String.valueOf(request.getAttribute("sname") == null ? "" : request.getAttribute("sname"));
 	String pageCount = String.valueOf(request.getAttribute("pageCount") == null ? "0" : request.getAttribute("pageCount"));
 %>
 </head>
@@ -53,7 +52,7 @@
 					<s:property value="#name.description"/>
 				</font>&nbsp;&nbsp;&nbsp;
 			</s:if><s:else>
-				<a href="list.action?type2=<s:property value="#name.name"/>"><s:property value="#name.description"/></a>&nbsp;&nbsp;&nbsp;
+				<a href="search.action?type2=<s:property value="#name.name"/>"><s:property value="#name.description"/></a>&nbsp;&nbsp;&nbsp;
 			</s:else>
 		</s:iterator>
 	</div>
@@ -75,8 +74,8 @@
 		<% String re = request.getAttribute("r") == null ? "" : (String) request.getAttribute("r"); %><!-- Retailer -->
 		<div class="scott">
 			<font color="4599e3">当前第&nbsp;<%=currentPage %>&nbsp;页,共<%=pageCount %>页</font>&nbsp;&nbsp;&nbsp;
-			<a href="list.action?r=<%=re %>&type1=<%=type1 %>&type2=<%=type2 %>&page=1"> << </a>
-			<a href="list.action?r=<%=re %>&type1=<%=type1 %>&type2=<%=type2 %>&page=<%=Integer.parseInt(currentPage)>1?Integer.parseInt(currentPage)-1:1 %>"> < </a>
+			<a href="search.action?n=<%=name %>&page=1"> << </a>
+			<a href="search.action?n=<%=name %>&page=<%=Integer.parseInt(currentPage)>1?Integer.parseInt(currentPage)-1:1 %>"> < </a>
 	<%  int i = 1;
 		int j = 1;
 		if(Integer.parseInt(currentPage) >= 6){
@@ -85,19 +84,19 @@
 		for(; i<=Integer.parseInt(pageCount);i++){
 			j++;
 			if(i == Integer.parseInt(currentPage)){
-	 %> <a id="p<%=i%>" href="list.action?r=<%=re %>&type1=<%=type1 %>&type2=<%=type2 %>&page=<%=i%>" class="current"><%=i %></a>
+	 %> <a id="p<%=i%>" href="search.action?n=<%=name %>&page=<%=i%>" class="current"><%=i %></a>
 	 	<% }else{ %>
-		<a id="p<%=i%>" href="list.action?r=<%=re %>&type1=<%=type1 %>&type2=<%=type2 %>&page=<%=i%>"><%=i %></a>
+		<a id="p<%=i%>" href="search.action?n=<%=name %>&page=<%=i%>"><%=i %></a>
 		<% }
 	 	if(j>6 && Integer.parseInt(pageCount) >=i+2){ %>
 	 	...
-	 	<a id="p<%=Integer.parseInt(pageCount)%>" href="list.action?r=<%=r %>&type1=<%=type1 %>&type2=<%=type2 %>&page=<%=pageCount%>"><%=Integer.parseInt(pageCount) %></a>
+	 	<a id="p<%=Integer.parseInt(pageCount)%>" href="search.action?n=<%=name %>&page=<%=pageCount%>"><%=Integer.parseInt(pageCount) %></a>
 	 <% break;
 	 	}
 	 } 
 	 %>
-			<a href="list.action?r=<%=re %>&type1=<%=type1 %>&type2=<%=type2 %>&page=<%=Integer.parseInt(currentPage)<Integer.parseInt(pageCount)?Integer.parseInt(currentPage)+1:pageCount %>"> > </a>
-			<a href="list.action?r=<%=re %>&type1=<%=type1 %>&type2=<%=type2 %>&page=<%=pageCount %>"> >> </a>
+			<a href="search.action?n=<%=name %>&page=<%=Integer.parseInt(currentPage)<Integer.parseInt(pageCount)?Integer.parseInt(currentPage)+1:pageCount %>"> > </a>
+			<a href="search.action?n=<%=name %>&page=<%=pageCount %>"> >> </a>
 		</div>
 	</s:if>
 	<s:else>

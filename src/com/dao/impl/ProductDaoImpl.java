@@ -124,5 +124,14 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
 		return new ArrayList<Product>();
 	}
 
+	public List<Product> selectProductByName(String name, int start) {
+		return this.getSqlMapClientTemplate().queryForList("selectProductByName", 
+				name, start, Constant.recordsPerPage);
+	}
+
+	public Integer selectProductByNameCount(String name) {
+		return (Integer) this.getSqlMapClientTemplate().queryForObject("selectProductByNameCount", name);
+	}
+
 
 }

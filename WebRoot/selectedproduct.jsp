@@ -43,7 +43,8 @@
 			<s:iterator value="#request.similar" var="pro">
 				<s:if test="#pro.retailer=='Broadway'">
 					<div class="product_img">
-						<img alt="" src="<s:property value="#pro.image"/>" >
+						<a href="<s:property value="#pro.link"/>" target="blank">
+							<img alt="" src="<s:property value="#pro.image"/>" ></a>
 						<div style="margin-top: 10px;width: 150px;text-align: center;">
 							<s:property value="#pro.brand"/>&nbsp;<s:property value="#pro.model"/>
 						</div>
@@ -57,7 +58,8 @@
 			<s:iterator value="#request.similar" var="pro">
 				<s:if test="#pro.retailer=='SuningHK'">
 					<div class="product_img">
-						<img alt="" src="<s:property value="#pro.image"/>" >
+						<a href="<s:property value="#pro.link"/>" target="blank">
+							<img alt="" src="<s:property value="#pro.image"/>" ></a>
 						<div style="margin-top: 10px;width: 150px;text-align: center;">
 							<s:property value="#pro.brand"/>&nbsp;<s:property value="#pro.model"/>
 						</div>
@@ -71,7 +73,8 @@
 			<s:iterator value="#request.similar" var="pro">
 				<s:if test="#pro.retailer=='Fortress'">
 					<div class="product_img">
-						<img alt="" src="<s:property value="#pro.image"/>" >
+						<a href="<s:property value="#pro.link"/>" target="blank">
+							<img alt="" src="<s:property value="#pro.image"/>" ></a>
 						<div style="margin-top: 10px;width: 150px;text-align: center;">
 							<s:property value="#pro.brand"/>&nbsp;<s:property value="#pro.model"/>
 						</div>

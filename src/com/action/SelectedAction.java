@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.model.Product;
+import com.util.Constant;
 import com.util.ProductUtil;
 
 public class SelectedAction extends BaseAction {
@@ -62,6 +63,21 @@ public class SelectedAction extends BaseAction {
 		return false;
 	}
 
+	public String search() {
+		String name = request.getParameter("n");
+		String p = request.getParameter("page");
+		int page = p == null ? 1 : Integer.parseInt(p);
+		List<Product> pList = getProductDao().selectProductByName(name, page);
+		int count = getProductDao().selectProductByNameCount(name);
+		request.setAttribute("pList", pList);
+		request.setAttribute("sname", name);
+		request.setAttribute("currentPage", page);
+		request.setAttribute("pListCount", count);
+		request.setAttribute("pageCount", count % Constant.recordsPerPage == 0 ? 
+				(count / Constant.recordsPerPage):(count / Constant.recordsPerPage + 1));
+		return SUCCESS;
+	}
+	
 	public String getModel() {
 		return model;
 	}

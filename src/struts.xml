@@ -20,5 +20,9 @@
 		<action name="findSelected" class="com.action.SelectedAction">
 			<result name="success">selectedproduct.jsp</result>
 		</action>
+		<action name="search" class="com.action.SelectedAction" method="search">
+<!-- 			<result name="success">search.jsp</result> -->
+			<result name="success">search.jsp</result>
+		</action>
 	</package>
 </struts>    

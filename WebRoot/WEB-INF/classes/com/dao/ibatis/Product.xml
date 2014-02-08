@@ -120,4 +120,13 @@
             #value[]#
         </iterate>
 	</select>
+	
+	<select id="selectProductByName" resultMap="ProductMap" parameterClass="java.lang.String">
+		select id,producttype,brand,model,price,link,description,retailer,create_date,image from product
+		where model like '%$value$%' or brand like '%$value$%'
+	</select>
+	
+	<select id="selectProductByNameCount" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		select count(*) from product where model like '%$value$%' or brand like '%$value$%'
+	</select>
 </sqlMap>
